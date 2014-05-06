@@ -1,20 +1,3 @@
 <div id="myPublisherDiv"></div>
 
-<script type="text/javascript">
-  // Initialize API key, session, and token...
-  // Think of a session as a room, and a token as the key to get in to the room
-  // Sessions and tokens are generated on your server and passed down to the client
-  var apiKey = "44754162";
-  var sessionId = "1_MX40NDc1NDE2Mn5-TW9uIE1heSAwNSAyMTowMToxOCBQRFQgMjAxNH4wLjA5NzY3NjE2flB-";
-  var token = "T1==cGFydG5lcl9pZD00NDc1NDE2MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1jNzk1OGFhYmQxOTI3MmU4YzdiMGM0YzBlMTJhOWMwYTAwNjAwZGRlOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9MV9NWDQwTkRjMU5ERTJNbjUtVFc5dUlFMWhlU0F3TlNBeU1Ub3dNVG94T0NCUVJGUWdNakF4Tkg0d0xqQTVOelkzTmpFMmZsQi0mY3JlYXRlX3RpbWU9MTM5OTM0ODkwMiZub25jZT0wLjU1NTgzNzExMzUzMzQ5NzkmZXhwaXJlX3RpbWU9MTQwMTk0MDgxOSZjb25uZWN0aW9uX2RhdGE9";
-
-  // Initialize session, set up event listeners, and connect
-  var session = TB.initSession(sessionId);
-  session.addEventListener('sessionConnected', sessionConnectedHandler);
-  session.connect(apiKey, token);
-  
-  function sessionConnectedHandler(event) {
-    var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
-    session.publish(publisher);
-  }
-</script>
+<button type="button" class="btn btn-default" id="initSession">Initialize Session</button>
