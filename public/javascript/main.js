@@ -27,6 +27,10 @@ function initSession() {
   session.on("streamCreated", function(event) {
     var props = {insertMode: "preppend", width: 800, height: 500};
     session.subscribe(event.stream, "you", props);
+    $("#me").animate({
+      left: "640px",
+      top: "340px" 
+    }, 400);
   });
 
   session.connect(pubToken, function(error) {
