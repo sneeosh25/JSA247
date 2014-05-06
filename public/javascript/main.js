@@ -13,7 +13,7 @@ $(document).ready(function(){
 });
 
 function initialize() {
-  $("#initSession").click(initSession);
+  $("#start_button").click(initSession);
 }
 
 
@@ -22,20 +22,18 @@ function initSession() {
 
   var session = OT.initSession(apiKey, sessionId);
 
-  // session.on("sessionConnected", function(event) {
-  //   console.log("session connected");
-  //   var publisher = OT.initPublisher();
-  //   session.publish(publisher);
-  // });
+  var me = $("#me");
 
   session.on("streamCreated", function(event) {
-    console.log("stream created");
-    session.subscribe(event.stream);
+    var props = {insertMode: "preppend", width: 800, height: 500};
+    session.subscribe(event.stream, "you", props);
   });
 
   session.connect(pubToken, function(error) {
-    console.log("connect");
-    var publisher = OT.initPublisher();
+    $("#start").html("Waiting for a friend");
+    $("#you").fadeIn();
+    var props = {width: 150, height: 150};
+    var publisher = OT.initPublisher("me", props);
     session.publish(publisher);
   });
 
