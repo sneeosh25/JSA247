@@ -1,12 +1,20 @@
-<!--   <div>Welcome to {{title}}, enable camera to post video emoji!</div>
-  <div id="waiting">Connecting to chat server...</div>
-  <div id="second_counter"></div>
-  <div id="conversation"></div>
-  <div id="submission">
-    <input type="text" placeholder="say something..">
-  </div>
-  <div id="webcam_stream"></div>
-  <div id="video_container"></div> -->
+<div id="myPublisherDiv"></div>
 
-<div id="freshtilledsoil_embed_widget" class="video-chat-widget"></div>
-<script id="fts" src="http://freshtilledsoil.com/embed/webrtc-v5.js?r=FTS0316-CZ6NqG97"></script>
+<script type="text/javascript">
+  // Initialize API key, session, and token...
+  // Think of a session as a room, and a token as the key to get in to the room
+  // Sessions and tokens are generated on your server and passed down to the client
+  var apiKey = "44754112";
+  var sessionId = "2_MX40NDc1NDExMn5-TW9uIE1heSAwNSAyMDowNTozOCBQRFQgMjAxNH4wLjYzMjUxNjR-fg";
+  var token = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz03OTg4NzVmYzE4NWUxMGU0NDc3MTgyYmIyYjI1NmU4M2EzOGJhNjc0OnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9Ml9NWDQwTkRjMU5ERXhNbjUtVFc5dUlFMWhlU0F3TlNBeU1Eb3dOVG96T0NCUVJGUWdNakF4Tkg0d0xqWXpNalV4TmpSLWZnJmNyZWF0ZV90aW1lPTEzOTkzNDU1Mzgmbm9uY2U9MC4xNzI4MTY2NDI2NDI0NzYxJmV4cGlyZV90aW1lPTEzOTk0MzE5MzgmY29ubmVjdGlvbl9kYXRhPQ==";
+
+  // Initialize session, set up event listeners, and connect
+  var session = TB.initSession(sessionId);
+  session.addEventListener('sessionConnected', sessionConnectedHandler);
+  session.connect(apiKey, token);
+  
+  function sessionConnectedHandler(event) {
+    var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
+    session.publish(publisher);
+  }
+</script>
