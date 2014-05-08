@@ -10,7 +10,58 @@ var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 
 $(document).ready(function(){
   initialize();
+  getSports();
+  getNYTimes();
 });
+
+
+function getNYTimes() {
+  $.get("/nytimes", function (data) {
+    console.log(data);
+    
+    data = JSON.parse(data);
+    var results = data.results;
+
+    var nyList = document.createElement("ul");
+
+    results.forEach(function (entry) {
+      var title = JSON.stringify(entry.title);
+
+      var listItem = document.createElement("li");
+      listItem.innerHTML = title;
+      nyList.appendChild(listItem);
+    });
+
+    var nydiv = document.getElementById('nydiv');
+
+    nydiv.appendChild(nyList);
+
+  });
+}
+
+
+function getSports() {
+   $.get("/sportsData", function (data) {
+      var newsFeed = data.feed;
+
+      var list = document.createElement("ul");
+      
+
+      newsFeed.forEach(function (entry) {
+        var headline = JSON.stringify(entry.headline);
+        var description = JSON.stringify(entry.description);
+
+        var listItem = document.createElement("li");
+        listItem.innerHTML = headline + '\n' + description;
+
+        list.appendChild(listItem);
+      });
+
+      var espdiv = document.getElementById('espnListContainer')
+
+      espdiv.appendChild(list);
+  });
+}
 
 function initialize() {
   $("#start_button").click(initSession);
@@ -31,6 +82,7 @@ function initSession() {
       left: "640px",
       top: "340px" 
     }, 400);
+
   });
 
   session.connect(pubToken, function(error) {
