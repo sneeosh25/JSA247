@@ -12,6 +12,7 @@ $(document).ready(function(){
   initialize();
   getSports();
   getNYTimes();
+  getWeather();
 });
 
 
@@ -61,6 +62,16 @@ function getSports() {
 
       espdiv.appendChild(list);
   });
+}
+
+function getWeather() {
+	$.get("/weatherData", function(data) {
+		var weatherDiv = document.getElementById('weather');
+		var weatherP = document.createElement('p');
+		
+		weatherDiv.innerHTML = "<b>Weather: </b>" + JSON.stringify(data.temp) + "F :" + JSON.stringify(data.sum);
+	});
+	
 }
 
 function initialize() {

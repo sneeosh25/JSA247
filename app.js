@@ -92,7 +92,7 @@ app.get("/nytimes", function(req, res) {
         });
 
         response.on('end', function () {
-            console.log(str);
+          //  console.log(str);
             res.send(str);
         });
     }
@@ -109,10 +109,37 @@ app.get("/sportsData", function(req, res) {
             console.error(err);
             return;
         }
-        console.log(json);
+      //  console.log(json);
         res.send(json);
     });
 });
 
 
+var Forecast = require('forecast');
+
+// Initialize
+
+
+app.get("/weatherData", function(req, res) {
+	
+	var forecast = new Forecast({
+  	service: 'forecast.io',
+  	key: '1049445d8e5fb59c76899f0c231b67c6',
+ 	 units: 'F', // Only the first letter is parsed
+  	cache: true,      // Cache API requests?
+  	ttl: {           // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/
+      minutes: 27,
+      seconds: 45
+    }
+	});
+// Retrieve weather information from coordinates (Sydney, Australia)
+	forecast.get([-33.8683, 151.2086], function(err, weather) {
+ 	 if(err) console.dir(err);
+ 	 else {
+ 		 var weatherPack = {sum:weather.currently.summary, temp:weather.currently.temperature};
+  		console.log(weatherPack);
+  		res.send(weatherPack);
+ 		 }
+		});
+});
 module.exports = app;
