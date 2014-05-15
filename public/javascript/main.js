@@ -87,7 +87,7 @@ function initSession() {
   var me = $("#me");
 
   session.on("streamCreated", function(event) {
-    var props = {insertMode: "preppend", width: 800, height: 500};
+    var props = {insertMode: "preppend", width: 605, height: 500};
     session.subscribe(event.stream, "you", props);
     $("#me").animate({
       left: "640px",
