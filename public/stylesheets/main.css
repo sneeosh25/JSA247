@@ -3,6 +3,28 @@
   margin: auto;
 }
 
+
+section {
+  width: 90%;
+  height: 500px;
+  background: aqua;
+  margin: auto;
+  padding: 10px;
+}
+
+div#left {
+  width: 60%;
+  height: 500px;
+  background: red;
+  float: left;
+}
+
+div#right {
+  margin-left: 60%;
+  height: 500px;
+  background: black;
+}
+
 #you {
   display: none;
   background-color: gray;
