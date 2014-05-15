@@ -90,7 +90,7 @@ function initSession() {
     var props = {insertMode: "preppend", width: 605, height: 500};
     session.subscribe(event.stream, "you", props);
     $("#me").animate({
-      left: "640px",
+      left: "440px",
       top: "340px" 
     }, 400);
 
