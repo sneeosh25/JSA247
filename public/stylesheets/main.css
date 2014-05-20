@@ -6,7 +6,7 @@
 
 section {
   width: 90%;
-  height: 500px;
+  height: 1000px;
   background: aqua;
   margin: auto;
   padding: 10px;
@@ -14,14 +14,14 @@ section {
 
 div#left {
   width: 60%;
-  height: 500px;
+  height: 1000px;
   background: red;
   float: left;
 }
 
 div#right {
   margin-left: 60%;
-  height: 500px;
+  height: 1000px;
   background: black;
   color: whitesmoke;
 }
@@ -56,6 +56,6 @@ div#right {
 #nydiv {
   padding: 5px;
   width:400px;
-  height:200px;
+  height:400px;
   overflow: hidden;
 }

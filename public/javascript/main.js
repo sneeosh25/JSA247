@@ -18,19 +18,29 @@ $(document).ready(function(){
 
 function getNYTimes() {
   $.get("/nytimes", function (data) {
-    console.log(data);
+    console.log("Got news response back");
     
-    data = JSON.parse(data);
-    var results = data.results;
+    var dataObj = JSON.parse(data);
+    var docObjs = dataObj.response.docs;
 
-    var nyList = document.createElement("ul");
+    var nyList = document.createElement("dl");
 
-    results.forEach(function (entry) {
-      var title = JSON.stringify(entry.title);
+    docObjs.forEach(function (entry) {
+      var headline = JSON.stringify(entry.headline.main);
+      var snippet = JSON.stringify(entry.snippet);
 
-      var listItem = document.createElement("li");
-      listItem.innerHTML = title;
-      nyList.appendChild(listItem);
+      var title = document.createElement("dt");
+      title.innerHTML = headline;
+
+      var description = document.createElement("dd");
+      description.innerHTML = snippet;
+
+      var br = document.createElement("br");
+
+      nyList.appendChild(title);
+      nyList.appendChild(description);
+      nyList.appendChild(br);
+
     });
 
     var nydiv = document.getElementById('nydiv');

@@ -92,12 +92,12 @@ app.get("/nytimes", function(req, res) {
         });
 
         response.on('end', function () {
-          //  console.log(str);
+            console.log(str);
             res.send(str);
         });
     }
 
-    http.request('http://api.nytimes.com/svc/search/v1/article?format=json&query=San+Francisco&rank=newest&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579', callback).end();
+    http.request('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=San+Francisco&sort=newest&fl=headline,snippet&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579', callback).end();
 });
 
 
