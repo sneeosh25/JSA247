@@ -1,6 +1,7 @@
 var express = require('express');
 var exphbs  = require('express3-handlebars');
 var http = require('http');
+var http_download = require('http-get');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
@@ -17,6 +18,47 @@ var T = new Twit({
   access_token_secret: 'gddlhXiEkHVpHqpTfJ6rPMkgMMUApQ9lSyIzqcRnDE8s7'
 });
 
+var Flickr = require("flickrapi"), flickrOptions = { api_key: "19944eabc1790d16813ec79f66a26dbb", secret: "19944eabc1790d16813ec79f66a26dbb"};
+
+//tests of flickr - still need dynamic geo and location
+Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+  flickr.places.findByLatLon({
+    lat: 37.4178,
+    lon: -122.1720, 
+    accuracy: 9
+  }, function(err, res) {
+    var woeID = res.places.place[0].woeid;
+    flickr.photos.search({
+      tags: "sunny", //need to make this specific to weather of the day
+      accuracy: 8,
+      group_id: '1463451@N25',
+      woed_id: woeID, 
+      sort: 'interestingness-desc'
+    }, function(err, result) {
+      var firstResultPhoto = result.photos.photo[10];
+      var downloadURL = makePhotoURL(firstResultPhoto);
+      console.log(downloadURL);
+      http_download.get(downloadURL, '/public/images/weather_background.jpg', function (error, r) {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log('File downloaded at: ' + r.file);
+        }
+      });
+    });
+  });
+});
+
+function makePhotoURL(photoObj) {
+  var farm_id = photoObj.farm;
+  var server_id = photoObj.server;
+  var id = photoObj.id;
+  var secret = photoObj.secret;
+
+  var url = 'http://farm' + farm_id + '.staticflickr.com/' + server_id + '/' + id + '_' + secret + '_o.jpg';
+
+  return url;
+}
 
 espn.setApiKey('ag2z9uxayb6g4qdt2jm6bzrs');
 
@@ -84,7 +126,6 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 
 
