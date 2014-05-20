@@ -8,6 +8,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var https = require('https');
 var espn = require('espn');
+var Twit = require('twit');
+
+var T = new Twit({
+  consumer_key: 'PQJV3igtLyLYLzQRG3lzsqEtS', 
+  consumer_secret: 'mIfx4uX5Pif7fZl13t77GzmAGtes4db3yXtmaSv6EEvjzKnAw0', 
+  access_token: '318328164-si1OAfAFlywIuKE6FoT4vnn1Xna3lpSoz0DMZU7k', 
+  access_token_secret: 'gddlhXiEkHVpHqpTfJ6rPMkgMMUApQ9lSyIzqcRnDE8s7'
+});
+
+
 espn.setApiKey('ag2z9uxayb6g4qdt2jm6bzrs');
 
 var nytimesapikey = 'c7e1d240b0c7722f4be0df214bc71cd1:3:69108579' ;
@@ -75,15 +85,41 @@ app.use(function(err, req, res, next) {
     });
 });
 
+
+
+
+//twitter tests - locaiton programmed for Stanford
+// T.get('trends/closest', { lat: 37.4178, long: -122.1720}, function(err, data, response) {
+//   var place = data[0];
+//   var WID = place.woeid;
+//   console.log(WID);
+//   T.get('trends/place', { id: WID }, function (error, datr, resp) {
+//     console.log(datr);
+//   });
+// });
+
+//T.get('search/tweets', { q: 'banana since:2011-11-11', count: 100 }, function(err, data, response) {
+//  console.log(data);
+//});
+
+app.get("/tweettrends", function(req, res) {
+  
+  T.get('trends/closest', { lat: 37.4178, long: -122.1720}, function(err, data, response) {
+    var place = data[0];
+    var WID = place.woeid;
+    T.get('trends/place', { id: WID }, function (error, datr, resp) {
+      console.log(datr);
+      res.send(datr);
+    });
+  });
+
+});
+
+
 //ny times calling api
 app.get("/nytimes", function(req, res) {
     var lat = req.lat;
     var lon = req.lon;
-
-//    var options = {
- //       host: 'http://api.nytimes.com/svc/search/v2/articlesearch',
-  //      path: '/query.json?q=San+Francisco&sort=newest&fl=snippent&api-key=' + nytimesapikey
-   // }
 
     callback = function(response) {
         var str = '';
@@ -92,7 +128,7 @@ app.get("/nytimes", function(req, res) {
         });
 
         response.on('end', function () {
-            console.log(str);
+            //console.log(str);
             res.send(str);
         });
     }

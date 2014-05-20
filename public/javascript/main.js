@@ -10,10 +10,39 @@ var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 
 $(document).ready(function(){
   initialize();
+  getTweets();
   getSports();
   getNYTimes();
   getWeather();
 });
+
+function getTweets() {
+  $.get("/tweettrends", function (data) {
+    console.log(data);
+    console.log("got response back from server bitches");
+
+    data = data[0];
+    var trnds = data.trends;
+    console.log(trnds);
+
+    var trendList = document.createElement("ul");
+
+    trnds.forEach(function (entry) {
+      var name = entry.name;
+      var url = entry.url;
+
+      var trendElement = document.createElement("li");
+      var a = document.createElement("a");
+      a.textContent = name;
+      a.setAttribute('href', url);
+      trendElement.appendChild(a);
+      trendList.appendChild(trendElement);
+    });
+
+    var trenddiv = document.getElementById('trenddiv');
+    trenddiv.appendChild(trendList);
+  });
+}
 
 
 function getNYTimes() {
@@ -26,8 +55,8 @@ function getNYTimes() {
     var nyList = document.createElement("dl");
 
     docObjs.forEach(function (entry) {
-      var headline = JSON.stringify(entry.headline.main);
-      var snippet = JSON.stringify(entry.snippet);
+      var headline = entry.headline.main;
+      var snippet = entry.snippet;
 
       var title = document.createElement("dt");
       title.innerHTML = headline;
@@ -59,8 +88,8 @@ function getSports() {
       
 
       newsFeed.forEach(function (entry) {
-        var headline = JSON.stringify(entry.headline);
-        var description = JSON.stringify(entry.description);
+        var headline = entry.headline;
+        var description = entry.description;
 
         var listItem = document.createElement("li");
         listItem.innerHTML = headline + '\n' + description;
