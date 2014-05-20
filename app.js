@@ -38,7 +38,7 @@ Flickr.tokenOnly(flickrOptions, function(error, flickr) {
       var firstResultPhoto = result.photos.photo[10];
       var downloadURL = makePhotoURL(firstResultPhoto);
       console.log(downloadURL);
-      http_download.get(downloadURL, '/public/images/weather_background.jpg', function (error, r) {
+      http_download.get(downloadURL, './public/images/weather_background.jpg', function (error, r) {
         if (error) {
           console.error(error);
         } else {
@@ -55,7 +55,7 @@ function makePhotoURL(photoObj) {
   var id = photoObj.id;
   var secret = photoObj.secret;
 
-  var url = 'http://farm' + farm_id + '.staticflickr.com/' + server_id + '/' + id + '_' + secret + '_o.jpg';
+  var url = 'http://farm' + farm_id + '.staticflickr.com/' + server_id + '/' + id + '_' + secret + '.jpg';
 
   return url;
 }
