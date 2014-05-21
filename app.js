@@ -1,6 +1,7 @@
 var express = require('express');
 var exphbs  = require('express3-handlebars');
 var http = require('http');
+var http_download = require('http-get');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
@@ -8,6 +9,57 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var https = require('https');
 var espn = require('espn');
+var Twit = require('twit');
+
+var T = new Twit({
+  consumer_key: 'PQJV3igtLyLYLzQRG3lzsqEtS', 
+  consumer_secret: 'mIfx4uX5Pif7fZl13t77GzmAGtes4db3yXtmaSv6EEvjzKnAw0', 
+  access_token: '318328164-si1OAfAFlywIuKE6FoT4vnn1Xna3lpSoz0DMZU7k', 
+  access_token_secret: 'gddlhXiEkHVpHqpTfJ6rPMkgMMUApQ9lSyIzqcRnDE8s7'
+});
+
+var Flickr = require("flickrapi"), flickrOptions = { api_key: "19944eabc1790d16813ec79f66a26dbb", secret: "19944eabc1790d16813ec79f66a26dbb"};
+
+//tests of flickr - still need dynamic geo and location
+Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+  flickr.places.findByLatLon({
+    lat: 37.4178,
+    lon: -122.1720, 
+    accuracy: 9
+  }, function(err, res) {
+    var woeID = res.places.place[0].woeid;
+    flickr.photos.search({
+      tags: "sunny", //need to make this specific to weather of the day
+      accuracy: 8,
+      group_id: '1463451@N25',
+      woed_id: woeID, 
+      sort: 'interestingness-desc'
+    }, function(err, result) {
+      var firstResultPhoto = result.photos.photo[10];
+      var downloadURL = makePhotoURL(firstResultPhoto);
+      console.log(downloadURL);
+      http_download.get(downloadURL, './public/images/weather_background.jpg', function (error, r) {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log('File downloaded at: ' + r.file);
+        }
+      });
+    });
+  });
+});
+
+function makePhotoURL(photoObj) {
+  var farm_id = photoObj.farm;
+  var server_id = photoObj.server;
+  var id = photoObj.id;
+  var secret = photoObj.secret;
+
+  var url = 'http://farm' + farm_id + '.staticflickr.com/' + server_id + '/' + id + '_' + secret + '.jpg';
+
+  return url;
+}
+
 espn.setApiKey('ag2z9uxayb6g4qdt2jm6bzrs');
 
 var nytimesapikey = 'c7e1d240b0c7722f4be0df214bc71cd1:3:69108579' ;
@@ -75,15 +127,40 @@ app.use(function(err, req, res, next) {
     });
 });
 
+
+
+//twitter tests - locaiton programmed for Stanford
+// T.get('trends/closest', { lat: 37.4178, long: -122.1720}, function(err, data, response) {
+//   var place = data[0];
+//   var WID = place.woeid;
+//   console.log(WID);
+//   T.get('trends/place', { id: WID }, function (error, datr, resp) {
+//     console.log(datr);
+//   });
+// });
+
+//T.get('search/tweets', { q: 'banana since:2011-11-11', count: 100 }, function(err, data, response) {
+//  console.log(data);
+//});
+
+app.get("/tweettrends", function(req, res) {
+  
+  T.get('trends/closest', { lat: 37.4178, long: -122.1720}, function(err, data, response) {
+    var place = data[0];
+    var WID = place.woeid;
+    T.get('trends/place', { id: WID }, function (error, datr, resp) {
+      console.log(datr);
+      res.send(datr);
+    });
+  });
+
+});
+
+
 //ny times calling api
 app.get("/nytimes", function(req, res) {
     var lat = req.lat;
     var lon = req.lon;
-
-//    var options = {
- //       host: 'http://api.nytimes.com/svc/search/v2/articlesearch',
-  //      path: '/query.json?q=San+Francisco&sort=newest&fl=snippent&api-key=' + nytimesapikey
-   // }
 
     callback = function(response) {
         var str = '';
@@ -92,12 +169,12 @@ app.get("/nytimes", function(req, res) {
         });
 
         response.on('end', function () {
-          //  console.log(str);
+            //console.log(str);
             res.send(str);
         });
     }
 
-    http.request('http://api.nytimes.com/svc/search/v1/article?format=json&query=San+Francisco&rank=newest&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579', callback).end();
+    http.request('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=San+Francisco&sort=newest&fl=headline,snippet&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579', callback).end();
 });
 
 

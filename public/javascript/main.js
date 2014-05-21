@@ -10,27 +10,66 @@ var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 
 $(document).ready(function(){
   initialize();
+  getTweets();
   getSports();
   getNYTimes();
   getWeather();
 });
 
+function getTweets() {
+  $.get("/tweettrends", function (data) {
+    console.log(data);
+    console.log("got response back from server bitches");
+
+    data = data[0];
+    var trnds = data.trends;
+    console.log(trnds);
+
+    var trendList = document.createElement("ul");
+
+    trnds.forEach(function (entry) {
+      var name = entry.name;
+      var url = entry.url;
+
+      var trendElement = document.createElement("li");
+      var a = document.createElement("a");
+      a.textContent = name;
+      a.setAttribute('href', url);
+      trendElement.appendChild(a);
+      trendList.appendChild(trendElement);
+    });
+
+    var trenddiv = document.getElementById('trenddiv');
+    trenddiv.appendChild(trendList);
+  });
+}
+
 
 function getNYTimes() {
   $.get("/nytimes", function (data) {
-    console.log(data);
+    console.log("Got news response back");
     
-    data = JSON.parse(data);
-    var results = data.results;
+    var dataObj = JSON.parse(data);
+    var docObjs = dataObj.response.docs;
 
-    var nyList = document.createElement("ul");
+    var nyList = document.createElement("dl");
 
-    results.forEach(function (entry) {
-      var title = JSON.stringify(entry.title);
+    docObjs.forEach(function (entry) {
+      var headline = entry.headline.main;
+      var snippet = entry.snippet;
 
-      var listItem = document.createElement("li");
-      listItem.innerHTML = title;
-      nyList.appendChild(listItem);
+      var title = document.createElement("dt");
+      title.innerHTML = headline;
+
+      var description = document.createElement("dd");
+      description.innerHTML = snippet;
+
+      var br = document.createElement("br");
+
+      nyList.appendChild(title);
+      nyList.appendChild(description);
+      nyList.appendChild(br);
+
     });
 
     var nydiv = document.getElementById('nydiv');
@@ -49,8 +88,8 @@ function getSports() {
       
 
       newsFeed.forEach(function (entry) {
-        var headline = JSON.stringify(entry.headline);
-        var description = JSON.stringify(entry.description);
+        var headline = entry.headline;
+        var description = entry.description;
 
         var listItem = document.createElement("li");
         listItem.innerHTML = headline + '\n' + description;
