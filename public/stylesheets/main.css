@@ -55,22 +55,21 @@ div.message {
 }
 
 #horizontalBar {
+
+  margin: 3px;
+
   height:80px;
   width:100%;
-  background: purple;
+  background: black;
+  opacity: .7;
   float:none;
   /*clear:none;*/
 }
 
 #partnerName {
-  padding-left: 10px; 
+  padding-top: 20px;
+  padding-left: 100px; 
   float: left;
-  color: whitesmoke;
-}
-
-#time {
-  padding-left: 10px;
-  float:left;
   color: whitesmoke;
 }
 

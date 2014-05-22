@@ -112,19 +112,28 @@ function initializeTokBox() {
 }
 
 function addContext() {
-  getPartnerNameCity(you.full_name, you.city);
+  getPartnerNameCityWeather(you.full_name, you.city);
   getWeatherBackground(encodeURI(you.city));
   // getTweets(getLat(you_city), getLong(you_city));
   getNYTimes(you.city);
-  getWeather(getLat(you.city), getLong(you.city));
+  //getWeather(getLat(you.city), getLong(you.city));
   // getSports();
 }
 
-function getPartnerNameCity(name, location) {
+function getPartnerNameCityWeather(name, location) {
   var nameDiv = document.getElementById("partnerName");
   var header = document.createElement("h4");
-  header.innerHTML = "Your Video Partner: " + name + " | Their Location : " + you_city;
-  nameDiv.appendChild(header);
+  var headerString = name + " | " + location;
+  $.get("/weatherData/" + getLat(you.city) + "/" + getLong(you.city), function(data) {
+    headerString += " | " + data.temp + " F, " + data.sum;
+    header.innerHTML = headerString;
+    nameDiv.appendChild(header);   
+  });
+}
+
+function getWeather(lat, long) {
+  
+  
 }
 
 function getLat(city) {
@@ -258,16 +267,5 @@ function getSports() {
   });
 }
 
-function getWeather(lat, long) {
-	$.get("/weatherData/" + lat + "/" + long, function(data) {
-		var weatherDiv = document.getElementById('weather');
-		var weatherheader = document.createElement('h4');
 
-    weatherheader.innerHTML = "Their Local Weather: " + data.temp + " F | " + data.sum;
-    weatherDiv.appendChild(weatherheader);
-		
-		//weatherDiv.innerHTML = "<b>Weather: </b>" + JSON.stringify(data.temp) + "F :" + JSON.stringify(data.sum);
-	});
-	
-}
 
