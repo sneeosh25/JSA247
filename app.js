@@ -106,19 +106,19 @@ app.use(function(err, req, res, next) {
 
 app.get("/getWeatherPhoto/:place", function(req, rs) {
   Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-      flickr.photos.search({
-        tags: req.params.place, //need to make this specific to weather of the day
-        //accuracy: 8,
-        //group_id: '1463451@N25',
-        sort: 'interestingness-desc'
-      }, function(err, result) {
-        console.log(result);
+    flickr.photos.search({
+      tags: req.params.place, //need to make this specific to weather of the day
+      //accuracy: 8,
+      //group_id: '1463451@N25',
+      sort: 'interestingness-desc'
+    }, function(err, result) {
+      console.log(result);
 
-        var firstResultPhoto = result.photos.photo[10];
-        var downloadURL = makePhotoURL(firstResultPhoto);
-        //console.log(downloadURL);
-        rs.send(downloadURL);
-      });
+      var firstResultPhoto = result.photos.photo[10];
+      var downloadURL = makePhotoURL(firstResultPhoto);
+      //console.log(downloadURL);
+      rs.send(downloadURL);
+    });
   });
 
 });
