@@ -9,12 +9,9 @@ var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 var fb_instance;
 var fb_stream;
 
-var me_city;
-var me_full_name;
-var me_id;
+var me = {id: -1, city: "", full_name: ""}
 
-var you_city;
-var you_full_name;
+var you = {id: -1, city: "", full_name: ""};
 
 var first = true;
 
@@ -32,44 +29,47 @@ function connect_to_firebase(){
     fb_stream.remove();  
   };
 
-  // only allow 0 and 1 pieces of data 
-  // var num = fb_stream.numChildren();
-  // if(!(num < 2)) {
-  //   fb_stream.remove();
-  // }
-
   fb_stream.on("child_added", function(snapshot) {
     obj = snapshot.val();
     console.log(obj);
-    if(obj.id != me_id && obj.id != null) {
-      you_city = obj.city;
-      you_full_name = obj.full_name;
+    if(obj.id != me.id && obj.id != null) {
+      you.city = obj.city;
+      you.full_name = obj.full_name;
+      you.id = obj.id;
       addContext();
+      stallForContext();
     }
   });
 }
 
 function initChat() {
-  $("#start").fadeOut();
+  $("#start").hide();
+  $("#subheader").hide();
   $("#chat_info").css("margin-top", 40);
   $("#chat_info").fadeIn(); 
   //$("#join_chat_btn").click(joinChat);
 }
 
 function joinChat() {
-  me_full_name = document.forms["centered_form"]["full_name"].value;
-  me_city = document.forms["centered_form"]["select_city"].value;
-  me_id = Math.random();
+  me.full_name = document.forms["centered_form"]["full_name"].value;
+  me.city = document.forms["centered_form"]["select_city"].value;
+  me.id = Math.random();
 
-  $(".message").html("");
-  $("#chat_info").fadeOut();
-  $("#content").fadeIn();
+  $(".message").hide();
+  $("#centered_form").hide();
+  $("#waiting").fadeIn();
 
+  stallForContext();
   connect_to_firebase();
-
-  fb_stream.push({id: me_id, full_name: me_full_name, city: me_city});
+  fb_stream.push({id: me.id, full_name: me.full_name, city: me.city});
 }
 
+function stallForContext() {
+  if(you.id != -1 && me.id != -1) {
+    $("#chat_info").hide();
+    $("#content").fadeIn();
+  }
+}
 
 // var posLat;
 //   var posLong;
@@ -92,21 +92,19 @@ function initializeTokBox() {
   $("#start_button").click(initChat);
 
   var session = OT.initSession(apiKey, sessionId);
-  var me = $("#me");
+  var me_div = $("#me");
 
   session.on("streamCreated", function(event) {
     var props = {insertMode: "preppend", width: 605, height: 500};
     session.subscribe(event.stream, "you", props);
-    $("#me").animate({
-      left: "440px",
-      top: "340px" 
-    }, 400);
+    $("#me").css("left", 440);
+    $("#me").css("top", 340);
     console.log(session.data);
   });
 
   session.connect(pubToken, function(error) {
     // $("#start").html("Waiting for a friend");
-    $("#you").fadeIn();
+    // $("#you").fadeIn();
     var props = {width: 150, height: 150};
     var publisher = OT.initPublisher("me", props);
     session.publish(publisher);
@@ -114,10 +112,10 @@ function initializeTokBox() {
 }
 
 function addContext() {
-  getWeatherBackground(getLat(you_city), getLong(you_city));
+  getWeatherBackground(getLat(you.city), getLong(you.city));
   // getTweets(getLat(you_city), getLong(you_city));
-  getNYTimes(you_city);
-  getWeather(getLat(you_city), getLong(you_city));
+  getNYTimes(you.city);
+  getWeather(getLat(you.city), getLong(you.city));
   // getSports();
 }
 
@@ -166,34 +164,34 @@ function getWeatherBackground(lat, long) {
 };
 
  
-// function getTweets(lat, long) {
-//   $.get("/tweettrends/" + lat + "/" + long, function (data) {
-//     console.log(data);
-//     console.log("got response back from server bitches");
+function getTweets(lat, long) {
+  $.get("/tweettrends/" + lat + "/" + long, function (data) {
+    console.log(data);
+    console.log("got response back from server bitches");
 
-//     data = data[0];
-//     var trnds = data.trends;
-//     console.log(trnds);
+    data = data[0];
+    var trnds = data.trends;
+    console.log(trnds);
 
-//     var trendList = document.createElement("ul");
+    var trendList = document.createElement("ul");
 
-//     trnds.forEach(function (entry) {
-//       var name = entry.name;
-//       var url = entry.url;
+    trnds.forEach(function (entry) {
+      var name = entry.name;
+      var url = entry.url;
 
-//       var trendElement = document.createElement("li");
-//       var a = document.createElement("a");
-//       a.textContent = name;
-//       a.setAttribute('href', url);
-//       a.setAttribute('target', "_blank");
-//       trendElement.appendChild(a);
-//       trendList.appendChild(trendElement);
-//     });
+      var trendElement = document.createElement("li");
+      var a = document.createElement("a");
+      a.textContent = name;
+      a.setAttribute('href', url);
+      a.setAttribute('target', "_blank");
+      trendElement.appendChild(a);
+      trendList.appendChild(trendElement);
+    });
 
-//     var trenddiv = document.getElementById('trenddiv');
-//     trenddiv.appendChild(trendList);
-//   });
-// }
+    var trenddiv = document.getElementById('trenddiv');
+    trenddiv.appendChild(trendList);
+  });
+}
 
 function getNYTimes(city) {
   $.get("/nytimes/" + city, function (data) {

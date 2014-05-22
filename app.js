@@ -112,6 +112,7 @@ app.get("/getWeatherPhoto/:lat/:long", function(req, rs) {
       accuracy: 9
     }, function(err, res) {
       var woeID = res.places.place[0].woeid;
+      console.log(woeID);
       flickr.photos.search({
         tags: "sunny", //need to make this specific to weather of the day
         accuracy: 8,
