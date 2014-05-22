@@ -14,6 +14,7 @@ $(document).ready(function(){
   getSports();
   getNYTimes();
   getWeather();
+  getLocation();
 });
 
 function getTweets() {
@@ -44,6 +45,22 @@ function getTweets() {
   });
 }
 
+function getLocation() {
+	 if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var posLat = position.coords.latitude;
+      var posLong = position.coords.longitude;
+                                       
+      console.log(posLat);
+      console.log(posLong);
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
 
 function getNYTimes() {
   $.get("/nytimes", function (data) {
