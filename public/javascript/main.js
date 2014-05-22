@@ -46,7 +46,6 @@ function getTweets() {
   });
 }
 
-
 function getNYTimes() {
   $.get("/nytimes", function (data) {
     console.log("Got news response back");
