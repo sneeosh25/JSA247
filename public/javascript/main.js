@@ -19,26 +19,29 @@ var you_full_name;
 var first = true;
 
 $(document).ready(function(){
-  connect_to_firebase();
   initializeTokBox();
 });
 
 function connect_to_firebase(){
   /* Include your Firebase link here!*/
   fb_instance = new Firebase("https://snapchat-for-dogs.firebaseio.com");
-  fb_stream_id = 11;
+  fb_stream_id = 2022991;
 
   fb_stream = fb_instance.child(fb_stream_id);
-  
+  window.onbeforeunload = function() {
+    fb_stream.remove();  
+  };
+
   // only allow 0 and 1 pieces of data 
-  // var num = fb_stream.val();
+  // var num = fb_stream.numChildren();
   // if(!(num < 2)) {
   //   fb_stream.remove();
   // }
 
   fb_stream.on("child_added", function(snapshot) {
     obj = snapshot.val();
-    if(obj.id != me_id) {
+    console.log(obj);
+    if(obj.id != me_id && obj.id != null) {
       you_city = obj.city;
       you_full_name = obj.full_name;
       addContext();
@@ -61,6 +64,8 @@ function joinChat() {
   $(".message").html("");
   $("#chat_info").fadeOut();
   $("#content").fadeIn();
+
+  connect_to_firebase();
 
   fb_stream.push({id: me_id, full_name: me_full_name, city: me_city});
 }
@@ -109,57 +114,89 @@ function initializeTokBox() {
 }
 
 function addContext() {
-  alert(you_city + " " + you_full_name);
-  getWeatherBackground();
-  getTweets();
+  getWeatherBackground(getLat(you_city), getLong(you_city));
+  // getTweets(getLat(you_city), getLong(you_city));
+  getNYTimes(you_city);
+  getWeather(getLat(you_city), getLong(you_city));
   // getSports();
-  getNYTimes();
-  getWeather();
 }
 
-function getWeatherBackground() {
-  $.get("/getWeatherPhoto", function (data) {
+function getLat(city) {
+  if(city == "San Francisco") {
+    return 37.7833;
+  }
+  if(city == "New York") {
+    return 40.7127;
+  }
+  if(city == "Los Angeles") {
+    return 34.0500;
+  }
+  if(city == "London") {
+    return 51.5072;
+  }
+  if(city == "Tokyo") {
+    return 35.6895;
+  }
+}
+
+function getLong(city) {
+  if(city == "San Francisco") {
+    return -122.4167;
+  }
+  if(city == "New York") {
+    return -74.0059;
+  }
+  if(city == "Los Angeles") {
+    return -118.2500;
+  }
+  if(city == "London") {
+    return 0.1275;
+  }
+  if(city == "Tokyo") {
+    return 139.6917;
+  }
+}
+
+function getWeatherBackground(lat, long) {
+  $.get("/getWeatherPhoto/" + lat + "/" + long, function (data) {
     console.log(data);
     var section = document.getElementById('content');
     section.style.backgroundImage = 'url(' + data + ')';
   });
 };
 
+ 
+// function getTweets(lat, long) {
+//   $.get("/tweettrends/" + lat + "/" + long, function (data) {
+//     console.log(data);
+//     console.log("got response back from server bitches");
 
-function getTweets() {
-  
-/*
-  $.get("/tweettrends", function (data) {
-    console.log(data);
-    console.log("got response back from server bitches");
+//     data = data[0];
+//     var trnds = data.trends;
+//     console.log(trnds);
 
-    data = data[0];
-    var trnds = data.trends;
-    console.log(trnds);
+//     var trendList = document.createElement("ul");
 
-    var trendList = document.createElement("ul");
+//     trnds.forEach(function (entry) {
+//       var name = entry.name;
+//       var url = entry.url;
 
-    trnds.forEach(function (entry) {
-      var name = entry.name;
-      var url = entry.url;
+//       var trendElement = document.createElement("li");
+//       var a = document.createElement("a");
+//       a.textContent = name;
+//       a.setAttribute('href', url);
+//       a.setAttribute('target', "_blank");
+//       trendElement.appendChild(a);
+//       trendList.appendChild(trendElement);
+//     });
 
-      var trendElement = document.createElement("li");
-      var a = document.createElement("a");
-      a.textContent = name;
-      a.setAttribute('href', url);
-      a.setAttribute('target', "_blank");
-      trendElement.appendChild(a);
-      trendList.appendChild(trendElement);
-    });
+//     var trenddiv = document.getElementById('trenddiv');
+//     trenddiv.appendChild(trendList);
+//   });
+// }
 
-    var trenddiv = document.getElementById('trenddiv');
-    trenddiv.appendChild(trendList);
-  });
-*/
-}
-
-function getNYTimes() {
-  $.get("/nytimes/", function (data) {
+function getNYTimes(city) {
+  $.get("/nytimes/" + city, function (data) {
     console.log("Got news response back");
     
     var dataObj = JSON.parse(data);
@@ -215,8 +252,8 @@ function getSports() {
   });
 }
 
-function getWeather() {
-	$.get("/weatherData", function(data) {
+function getWeather(lat, long) {
+	$.get("/weatherData/" + lat + "/" + long, function(data) {
 		var weatherDiv = document.getElementById('weather');
 		var weatherheader = document.createElement('h4');
 

@@ -143,9 +143,11 @@ app.get("/getWeatherPhoto", function(req, rs) {
 //  console.log(data);
 //});
 
-app.get("/tweettrends", function(req, res) {
-  
-  T.get('trends/closest', { lat: 37.4178, long: -122.1720}, function(err, data, response) {
+app.get("/tweettrends/:lat/:long", function(req, res) {
+  var lat = req.params.lat;
+  var long = req.params.long;
+
+  T.get('trends/closest', { lat: lat, long: long}, function(err, data, response) {
     if (err) {
       console.log(err);
     } else {
@@ -156,17 +158,13 @@ app.get("/tweettrends", function(req, res) {
           res.send(datr);
        });
     }
-   
   });
-
 });
 
 
 //ny times calling api
 app.get("/nytimes/:city", function(req, res) {
-    // console.log(req.)
-    var lat = req.lat;
-    var lon = req.lon;
+    var city = req.params.city.replace(" ", "+");
 
     callback = function(response) {
         var str = '';
@@ -180,7 +178,7 @@ app.get("/nytimes/:city", function(req, res) {
         });
     }
 
-    http.request('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=San+Francisco&sort=newest&fl=headline,snippet&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579', callback).end();
+    http.request('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + city + '&sort=newest&fl=headline,snippet&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579', callback).end();
 });
 
 
@@ -203,8 +201,10 @@ var Forecast = require('forecast');
 // Initialize
 
 
-app.get("/weatherData", function(req, res) {
-	
+app.get("/weatherData/:lat/:long", function(req, res) {
+	var lat = req.params.lat;
+  var long = req.params.long;
+
 	var forecast = new Forecast({
   	service: 'forecast.io',
   	key: '1049445d8e5fb59c76899f0c231b67c6',
@@ -215,8 +215,8 @@ app.get("/weatherData", function(req, res) {
       seconds: 45
     }
 	});
-// Retrieve weather information from coordinates (Sydney, Australia)
-	forecast.get([-33.8683, 151.2086], function(err, weather) {
+
+	forecast.get([lat, long], function(err, weather) {
  	 if(err) console.dir(err);
  	 else {
  		 var weatherPack = {sum:weather.currently.summary, temp:weather.currently.temperature};
