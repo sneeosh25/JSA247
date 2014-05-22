@@ -148,14 +148,17 @@ app.get("/tweettrends/:lat/:long", function(req, res) {
   var long = req.params.long;
 
   T.get('trends/closest', { lat: lat, long: long}, function(err, data, response) {
-    var place = data[0];
-    var WID = place.woeid;
-    T.get('trends/place', { id: WID }, function (error, datr, resp) {
-      console.log(datr);
-      res.send(datr);
-    });
+    if (err) {
+      console.log(err);
+    } else {
+       var place = data[0];
+       var WID = place.woeid;
+       T.get('trends/place', { id: WID }, function (error, datr, resp) {
+          console.log(datr);
+          res.send(datr);
+       });
+    }
   });
-
 });
 
 

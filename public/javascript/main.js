@@ -160,12 +160,13 @@ function getLong(city) {
 function getWeatherBackground(lat, long) {
   $.get("/getWeatherPhoto/" + lat + "/" + long, function (data) {
     console.log(data);
-    var section = document.getElementById('left');
+    var section = document.getElementById('content');
     section.style.backgroundImage = 'url(' + data + ')';
   });
 };
 
-function getTweets(lat, long) {
+ 
+/*
   $.get("/tweettrends/" + lat + "/" + long, function (data) {
     console.log(data);
     console.log("got response back from server bitches");
@@ -192,6 +193,7 @@ function getTweets(lat, long) {
     var trenddiv = document.getElementById('trenddiv');
     trenddiv.appendChild(trendList);
   });
+*/
 }
 
 function getNYTimes(city) {
@@ -254,9 +256,12 @@ function getSports() {
 function getWeather(lat, long) {
 	$.get("/weatherData/" + lat + "/" + long, function(data) {
 		var weatherDiv = document.getElementById('weather');
-		var weatherP = document.createElement('p');
+		var weatherheader = document.createElement('h4');
+
+    weatherheader.innerHTML = "Their Local Weather: " + data.temp + " F | " + data.sum;
+    weatherDiv.appendChild(weatherheader);
 		
-		weatherDiv.innerHTML = "<b>Weather: </b>" + JSON.stringify(data.temp) + "F :" + JSON.stringify(data.sum);
+		//weatherDiv.innerHTML = "<b>Weather: </b>" + JSON.stringify(data.temp) + "F :" + JSON.stringify(data.sum);
 	});
 	
 }
