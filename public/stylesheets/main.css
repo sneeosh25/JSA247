@@ -73,6 +73,15 @@ div.message {
   color: whitesmoke;
 }
 
+.toggle_header {
+
+}
+
+.toggle_header:hover {
+  cursor: pointer;
+  color: darkseagreen;
+}
+
 #left {
   width: 60%;
   height: 1000px;
