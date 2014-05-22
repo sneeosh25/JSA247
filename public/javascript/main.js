@@ -10,7 +10,7 @@ var fb_instance;
 
 $(document).ready(function(){
   initialize();
-  setWeatherBackground();
+  getWeatherBackground();
   getTweets();
   getSports();
   getNYTimes();
@@ -18,9 +18,12 @@ $(document).ready(function(){
   getTime();
 });
 
-function setWeatherBackground() {
-  var mainDiv = document.getElementById('left');
-  mainDiv.backgroundImage = '/public/images/weather_background.jpg';
+function getWeatherBackground() {
+  $.get("/getWeatherPhoto", function (data) {
+    console.log(data);
+    var section = document.getElementById('left');
+    section.style.backgroundImage = 'url(' + data + ')';
+  });
 };
 
 function getTweets() {

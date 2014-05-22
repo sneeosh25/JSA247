@@ -1,3 +1,5 @@
+
+
 #start_button {
   text-align: center;
   margin: auto;
@@ -12,10 +14,10 @@ section {
   padding: 10px;
 }
 
-div#left {
+#left {
   width: 60%;
   height: 1000px;
-  background: red;
+  /*background: red;*/
   float: left;
 }
 
