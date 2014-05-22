@@ -15,8 +15,18 @@ var you = {id: -1, city: "", full_name: ""};
 var first = true;
 
 $(document).ready(function(){
+  $("#news_header").click(toggleNews());
+  $("#twitter_header").click(toggleTwitter());
   initializeTokBox();
 });
+
+function toggleNews() {
+  $("#news_content").toggle();
+}
+
+function toggleTwitter() {
+  $("#twitter_content").toggle();
+}
 
 function connect_to_firebase(){
   /* Include your Firebase link here!*/
@@ -102,8 +112,6 @@ function initializeTokBox() {
   });
 
   session.connect(pubToken, function(error) {
-    // $("#start").html("Waiting for a friend");
-    // $("#you").fadeIn();
     var props = {width: 150, height: 150};
     var publisher = OT.initPublisher("me", props);
     session.publish(publisher);
@@ -113,7 +121,7 @@ function initializeTokBox() {
 function addContext() {
   getPartnerNameCity(you.full_name, you.city);
   getWeatherBackground(encodeURI(you.city));
-  // getTweets(getLat(you_city), getLong(you_city));
+  getTweets(getLat(you.city), getLong(you.city));
   getNYTimes(you.city);
   getWeather(getLat(you.city), getLong(you.city));
   // getSports();
@@ -195,7 +203,7 @@ function getTweets(lat, long) {
       trendList.appendChild(trendElement);
     });
 
-    var trenddiv = document.getElementById('trenddiv');
+    var trenddiv = document.getElementById('twitter_content');
     trenddiv.appendChild(trendList);
   });
 }
@@ -227,8 +235,7 @@ function getNYTimes(city) {
 
     });
 
-    var nydiv = document.getElementById('nydiv');
-
+    var nydiv = document.getElementById('news_content');
     nydiv.appendChild(nyList);
 
   });

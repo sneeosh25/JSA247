@@ -112,7 +112,7 @@ app.get("/getWeatherPhoto/:place", function(req, rs) {
       //group_id: '1463451@N25',
       sort: 'interestingness-desc'
     }, function(err, result) {
-      console.log(result);
+      // console.log(result);
 
       var firstResultPhoto = result.photos.photo[10];
       var downloadURL = makePhotoURL(firstResultPhoto);
