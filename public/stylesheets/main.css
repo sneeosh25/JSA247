@@ -1,7 +1,3 @@
-#start_button {
-  text-align: center;
-  margin: auto;
-}
 
 
 section {
@@ -10,6 +6,38 @@ section {
   background: aqua;
   margin: auto;
   padding: 10px;
+}
+
+div.message {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#welcome {
+}
+
+#start {
+  text-align: center;
+  margin-top: 60px;
+}
+
+#chat_info {
+  display: none;
+}
+
+#join_chat_btn {
+  margin-top: 10px;
+  float: right;
+}
+
+#centered_form {
+  margin: auto;
+  width: 350px;
+}
+
+#content {
+  display: none;
 }
 
 div#left {

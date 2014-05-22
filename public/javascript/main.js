@@ -7,15 +7,113 @@ var pubToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1mYzQxNTBkM2RlYTFlN2Q1MGRhM2ZkYWRhYWM2MzgxNTczZTI5YzRkOnJvbGU9bW9kZXJhdG9yJnNlc3Npb25faWQ9MV9NWDQwTkRjMU5ERXhNbjUtVFc5dUlFMWhlU0F3TlNBeU1qbzBOam8xTmlCUVJGUWdNakF4Tkg0d0xqRTNNalExTWpVM2ZsQi0mY3JlYXRlX3RpbWU9MTM5OTM1NTI2OCZub25jZT0wLjM1NzMzNTkxNTAwOTkwOSZleHBpcmVfdGltZT0xNDAxOTQ3MjEwJmNvbm5lY3Rpb25fZGF0YT0=";
 
 var fb_instance;
+var fb_stream;
+
+var me_city;
+var me_full_name;
+var me_id;
+
+var you_city;
+var you_full_name;
+
+var first = true;
 
 $(document).ready(function(){
-  initialize();
-  getTweets();
+  connect_to_firebase();
+  initializeTokBox();
+});
+
+function connect_to_firebase(){
+  /* Include your Firebase link here!*/
+  fb_instance = new Firebase("https://snapchat-for-dogs.firebaseio.com");
+  fb_stream_id = 11;
+
+  fb_stream = fb_instance.child(fb_stream_id);
+  // var num = fb_stream.val();
+  // if(!(num < 2)) {
+  //   fb_stream.remove();
+  // }
+
+  fb_stream.on("child_added", function(snapshot) {
+    obj = snapshot.val();
+    if(obj.id != me_id) {
+      you_city = obj.city;
+      you_full_name = obj.full_name;
+      addContext();
+    }
+  });
+}
+
+function initChat() {
+  $("#start").fadeOut();
+  $("#chat_info").css("margin-top", 40);
+  $("#chat_info").fadeIn(); 
+  //$("#join_chat_btn").click(joinChat);
+}
+
+function joinChat() {
+  me_full_name = document.forms["centered_form"]["full_name"].value;
+  me_city = document.forms["centered_form"]["select_city"].value;
+  me_id = Math.random();
+
+  $(".message").html("");
+  $("#chat_info").fadeOut();
+  $("#content").fadeIn();
+
+  fb_stream.push({id: me_id, full_name: me_full_name, city: me_city});
+}
+
+
+// var posLat;
+//   var posLong;
+//   if(navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(function(position) {
+//       posLat = position.coords.latitude;
+//       posLong = position.coords.longitude;
+//       fb_instance_stream.push(posLat);          
+//       // console.log(posLat);
+//       // console.log(posLong);
+//     }, function() {
+//       handleNoGeolocation(true);
+//     });
+//   } else {
+//     // Browser doesn't support Geolocation
+//     handleNoGeolocation(false);
+//   }
+
+function initializeTokBox() { 
+  $("#start_button").click(initChat);
+
+  var session = OT.initSession(apiKey, sessionId);
+  var me = $("#me");
+
+  session.on("streamCreated", function(event) {
+    var props = {insertMode: "preppend", width: 605, height: 500};
+    session.subscribe(event.stream, "you", props);
+    $("#me").animate({
+      left: "440px",
+      top: "340px" 
+    }, 400);
+    addContext();
+    console.log(session.data);
+  });
+
+  session.connect(pubToken, function(error) {
+    // $("#start").html("Waiting for a friend");
+    $("#you").fadeIn();
+    var props = {width: 150, height: 150};
+    var publisher = OT.initPublisher("me", props);
+    session.publish(publisher);
+  });
+}
+
+function addContext() {
+  alert(you_city + " " + you_full_name);
+  // getTweets();
   getSports();
   getNYTimes();
   getWeather();
-  getTime();
-});
+}
 
 function getTweets() {
   $.get("/tweettrends", function (data) {
@@ -80,7 +178,6 @@ function getNYTimes() {
   });
 }
 
-
 function getSports() {
    $.get("/sportsData", function (data) {
       var newsFeed = data.feed;
@@ -113,74 +210,4 @@ function getWeather() {
 	});
 	
 }
-
-function getTime() {
-  
-}
-
-function initialize() {
-  connect_to_chat_firebase();  
-  $("#start_button").click(initSession);
-}
-
-function connect_to_chat_firebase(){
-  /* Include your Firebase link here!*/
-  fb_instance = new Firebase("https://snapchat-for-dogs.firebaseio.com");
-  fb_chat_room_id = 2;
-
-  // set up variables to access firebase data structure
-  var fb_new_chat_room = fb_instance.child('chatrooms').child(fb_chat_room_id);
-  var fb_instance_users = fb_new_chat_room.child('users');
-  var fb_instance_stream = fb_new_chat_room.child('stream');
-
-  fb_instance_stream.on("child_added", function(snapshot){
-    console.log(snapshot.val());
-  });
-
-  var posLat;
-  var posLong;
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      posLat = position.coords.latitude;
-      posLong = position.coords.longitude;
-      fb_instance_stream.push(posLat);          
-      // console.log(posLat);
-      // console.log(posLong);
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
-}
-
-
-function initSession() {
-  console.log("initializing session");
-
-  var session = OT.initSession(apiKey, sessionId);
-
-  var me = $("#me");
-
-  session.on("streamCreated", function(event) {
-    var props = {insertMode: "preppend", width: 605, height: 500};
-    session.subscribe(event.stream, "you", props);
-    $("#me").animate({
-      left: "440px",
-      top: "340px" 
-    }, 400);
-    console.log(session.data);
-  });
-
-  session.connect(pubToken, function(error) {
-    $("#start").html("Waiting for a friend");
-    $("#you").fadeIn();
-    var props = {width: 150, height: 150};
-    var publisher = OT.initPublisher("me", props);
-    session.publish(publisher);
-  });
-
-}
-
 
