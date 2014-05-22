@@ -22,7 +22,7 @@ $(document).ready(function(){
 function connect_to_firebase(){
   /* Include your Firebase link here!*/
   fb_instance = new Firebase("https://snapchat-for-dogs.firebaseio.com");
-  fb_stream_id = 2022991;
+  fb_stream_id = 2023456;
 
   fb_stream = fb_instance.child(fb_stream_id);
   window.onbeforeunload = function() {
@@ -112,7 +112,7 @@ function initializeTokBox() {
 }
 
 function addContext() {
-  getWeatherBackground(getLat(you.city), getLong(you.city));
+  getWeatherBackground(encodeURI(you.city));
   // getTweets(getLat(you_city), getLong(you_city));
   getNYTimes(you.city);
   getWeather(getLat(you.city), getLong(you.city));
@@ -155,8 +155,8 @@ function getLong(city) {
   }
 }
 
-function getWeatherBackground(lat, long) {
-  $.get("/getWeatherPhoto/" + lat + "/" + long, function (data) {
+function getWeatherBackground(place) {
+  $.get("/getWeatherPhoto/" + place, function (data) {
     console.log(data);
     var section = document.getElementById('content');
     section.style.backgroundImage = 'url(' + data + ')';

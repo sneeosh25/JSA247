@@ -104,27 +104,20 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.get("/getWeatherPhoto/:lat/:long", function(req, rs) {
+app.get("/getWeatherPhoto/:place", function(req, rs) {
   Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-    flickr.places.findByLatLon({
-      lat: req.params.lat,
-      lon: req.params.long, 
-      accuracy: 9
-    }, function(err, res) {
-      var woeID = res.places.place[0].woeid;
-      console.log(woeID);
-      flickr.photos.search({
-        tags: "sunny", //need to make this specific to weather of the day
-        accuracy: 8,
-        group_id: '1463451@N25',
-        woed_id: woeID, 
-        sort: 'interestingness-desc'
-      }, function(err, result) {
-        var firstResultPhoto = result.photos.photo[10];
-        var downloadURL = makePhotoURL(firstResultPhoto);
-        console.log(downloadURL);
-        rs.send(downloadURL);
-      });
+    flickr.photos.search({
+      tags: req.params.place, //need to make this specific to weather of the day
+      //accuracy: 8,
+      //group_id: '1463451@N25',
+      sort: 'interestingness-desc'
+    }, function(err, result) {
+      console.log(result);
+
+      var firstResultPhoto = result.photos.photo[10];
+      var downloadURL = makePhotoURL(firstResultPhoto);
+      //console.log(downloadURL);
+      rs.send(downloadURL);
     });
   });
 
