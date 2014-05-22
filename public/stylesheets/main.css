@@ -1,4 +1,7 @@
-
+#start_button {
+  text-align: center;
+  margin: auto;
+}
 
 section {
   width: 90%;
@@ -40,10 +43,10 @@ div.message {
   display: none;
 }
 
-div#left {
+#left {
   width: 60%;
   height: 1000px;
-  background: red;
+  /*background: red;*/
   float: left;
 }
 

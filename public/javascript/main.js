@@ -111,11 +111,20 @@ function initializeTokBox() {
 
 function addContext() {
   alert(you_city + " " + you_full_name);
+  getWeatherBackground();
   getTweets();
   // getSports();
   getNYTimes();
   getWeather();
 }
+
+function getWeatherBackground() {
+  $.get("/getWeatherPhoto", function (data) {
+    console.log(data);
+    var section = document.getElementById('left');
+    section.style.backgroundImage = 'url(' + data + ')';
+  });
+};
 
 function getTweets() {
   $.get("/tweettrends", function (data) {
