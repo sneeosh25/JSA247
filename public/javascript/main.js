@@ -10,11 +10,17 @@ var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 
 $(document).ready(function(){
   initialize();
+  setWeatherBackground();
   getTweets();
   getSports();
   getNYTimes();
   getWeather();
 });
+
+function setWeatherBackground() {
+  var mainDiv = document.getElementById('left');
+  mainDiv.backgroundImage = '/public/images/weather_background.jpg';
+};
 
 function getTweets() {
   $.get("/tweettrends", function (data) {
