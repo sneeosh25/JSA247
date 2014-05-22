@@ -15,8 +15,6 @@ var you = {id: -1, city: "", full_name: ""};
 var first = true;
 
 $(document).ready(function(){
-  $("#news_header").click(toggleNews());
-  $("#twitter_header").click(toggleTwitter());
   initializeTokBox();
 });
 
@@ -138,7 +136,6 @@ function getPartnerNameCityWeather(name, location) {
   });
 }
 
-
 function getLat(city) {
   if(city == "San Francisco") {
     return 37.7833;
@@ -210,6 +207,7 @@ function getTweets(lat, long) {
 
     var trenddiv = document.getElementById('twitter_content');
     trenddiv.appendChild(trendList);
+    $("#twitter_header").click(toggleTwitter);
   });
 }
 
@@ -242,7 +240,7 @@ function getNYTimes(city) {
 
     var nydiv = document.getElementById('news_content');
     nydiv.appendChild(nyList);
-
+    $("#news_header").click(toggleNews);
   });
 }
 
