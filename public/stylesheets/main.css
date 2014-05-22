@@ -55,7 +55,14 @@ div.message {
   /*clear:none;*/
 }
 
+#partnerName {
+  padding-left: 10px; 
+  float: left;
+  color: whitesmoke;
+}
+
 #time {
+  padding-left: 10px;
   float:left;
   color: whitesmoke;
 }

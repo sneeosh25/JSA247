@@ -114,11 +114,19 @@ function initializeTokBox() {
 }
 
 function addContext() {
+  getPartnerNameCity(you_full_name, you_city);
   getWeatherBackground(encodeURI(you_city));
   // getTweets(getLat(you_city), getLong(you_city));
   getNYTimes(you_city);
   getWeather(getLat(you_city), getLong(you_city));
   // getSports();
+}
+
+function getPartnerNameCity(name, location) {
+  var nameDiv = document.getElementById("partnerName");
+  var header = document.createElement("h4");
+  header.innerHTML = "Your Video Partner: " + name + " | Their Location : " + you_city;
+  nameDiv.appendChild(header);
 }
 
 function getLat(city) {
