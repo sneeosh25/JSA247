@@ -156,7 +156,6 @@ app.get("/tweettrends", function(req, res) {
           res.send(datr);
        });
     }
-
    
   });
 
