@@ -146,12 +146,18 @@ app.get("/getWeatherPhoto", function(req, rs) {
 app.get("/tweettrends", function(req, res) {
   
   T.get('trends/closest', { lat: 37.4178, long: -122.1720}, function(err, data, response) {
-    var place = data[0];
-    var WID = place.woeid;
-    T.get('trends/place', { id: WID }, function (error, datr, resp) {
-      console.log(datr);
-      res.send(datr);
-    });
+    if (err) {
+      console.log(err);
+    } else {
+       var place = data[0];
+       var WID = place.woeid;
+       T.get('trends/place', { id: WID }, function (error, datr, resp) {
+          console.log(datr);
+          res.send(datr);
+       });
+    }
+
+   
   });
 
 });

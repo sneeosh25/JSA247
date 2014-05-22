@@ -96,7 +96,6 @@ function initializeTokBox() {
       left: "440px",
       top: "340px" 
     }, 400);
-    addContext();
     console.log(session.data);
   });
 
@@ -121,12 +120,15 @@ function addContext() {
 function getWeatherBackground() {
   $.get("/getWeatherPhoto", function (data) {
     console.log(data);
-    var section = document.getElementById('left');
+    var section = document.getElementById('content');
     section.style.backgroundImage = 'url(' + data + ')';
   });
 };
 
+
 function getTweets() {
+  
+/*
   $.get("/tweettrends", function (data) {
     console.log(data);
     console.log("got response back from server bitches");
@@ -153,6 +155,7 @@ function getTweets() {
     var trenddiv = document.getElementById('trenddiv');
     trenddiv.appendChild(trendList);
   });
+*/
 }
 
 function getNYTimes() {
@@ -215,9 +218,12 @@ function getSports() {
 function getWeather() {
 	$.get("/weatherData", function(data) {
 		var weatherDiv = document.getElementById('weather');
-		var weatherP = document.createElement('p');
+		var weatherheader = document.createElement('h4');
+
+    weatherheader.innerHTML = "Their Local Weather: " + data.temp + " F | " + data.sum;
+    weatherDiv.appendChild(weatherheader);
 		
-		weatherDiv.innerHTML = "<b>Weather: </b>" + JSON.stringify(data.temp) + "F :" + JSON.stringify(data.sum);
+		//weatherDiv.innerHTML = "<b>Weather: </b>" + JSON.stringify(data.temp) + "F :" + JSON.stringify(data.sum);
 	});
 	
 }

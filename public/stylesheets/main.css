@@ -41,6 +41,23 @@ div.message {
 
 #content {
   display: none;
+  width:100%;
+  /*margin: auto;*/
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#horizontalBar {
+  height:80px;
+  width:100%;
+  background: purple;
+  float:none;
+  /*clear:none;*/
+}
+
+#time {
+  float:left;
+  color: whitesmoke;
 }
 
 #left {
@@ -75,8 +92,8 @@ div#right {
 }
 
 #weather {
-  padding: 5px;
-  width:200px;
+  float:left;
+  color:whitesmoke;
 }
 
 #espnListContainer {
