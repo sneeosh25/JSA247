@@ -104,11 +104,11 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.get("/getWeatherPhoto", function(req, rs) {
+app.get("/getWeatherPhoto/:lat/:long", function(req, rs) {
   Flickr.tokenOnly(flickrOptions, function(error, flickr) {
     flickr.places.findByLatLon({
-      lat: 37.4178,
-      lon: -122.1720, 
+      lat: req.params.lat,
+      lon: req.params.long, 
       accuracy: 9
     }, function(err, res) {
       var woeID = res.places.place[0].woeid;
