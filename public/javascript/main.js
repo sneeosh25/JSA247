@@ -166,35 +166,34 @@ function getWeatherBackground(lat, long) {
 };
 
  
-/*
-  $.get("/tweettrends/" + lat + "/" + long, function (data) {
-    console.log(data);
-    console.log("got response back from server bitches");
+// function getTweets(lat, long) {
+//   $.get("/tweettrends/" + lat + "/" + long, function (data) {
+//     console.log(data);
+//     console.log("got response back from server bitches");
 
-    data = data[0];
-    var trnds = data.trends;
-    console.log(trnds);
+//     data = data[0];
+//     var trnds = data.trends;
+//     console.log(trnds);
 
-    var trendList = document.createElement("ul");
+//     var trendList = document.createElement("ul");
 
-    trnds.forEach(function (entry) {
-      var name = entry.name;
-      var url = entry.url;
+//     trnds.forEach(function (entry) {
+//       var name = entry.name;
+//       var url = entry.url;
 
-      var trendElement = document.createElement("li");
-      var a = document.createElement("a");
-      a.textContent = name;
-      a.setAttribute('href', url);
-      a.setAttribute('target', "_blank");
-      trendElement.appendChild(a);
-      trendList.appendChild(trendElement);
-    });
+//       var trendElement = document.createElement("li");
+//       var a = document.createElement("a");
+//       a.textContent = name;
+//       a.setAttribute('href', url);
+//       a.setAttribute('target', "_blank");
+//       trendElement.appendChild(a);
+//       trendList.appendChild(trendElement);
+//     });
 
-    var trenddiv = document.getElementById('trenddiv');
-    trenddiv.appendChild(trendList);
-  });
-*/
-}
+//     var trenddiv = document.getElementById('trenddiv');
+//     trenddiv.appendChild(trendList);
+//   });
+// }
 
 function getNYTimes(city) {
   $.get("/nytimes/" + city, function (data) {
