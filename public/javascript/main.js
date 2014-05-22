@@ -10,7 +10,6 @@ var fb_instance;
 var fb_stream;
 
 var me = {id: -1, city: "", full_name: ""}
-
 var you = {id: -1, city: "", full_name: ""};
 
 var first = true;
@@ -123,7 +122,7 @@ function addContext() {
 function getPartnerNameCity(name, location) {
   var nameDiv = document.getElementById("partnerName");
   var header = document.createElement("h4");
-  header.innerHTML = "Your Video Partner: " + name + " | Their Location : " + you_city;
+  header.innerHTML = "Your Video Partner: " + name + " | Their Location : " + location;
   nameDiv.appendChild(header);
 }
 
