@@ -29,6 +29,8 @@ function connect_to_firebase(){
   fb_stream_id = 11;
 
   fb_stream = fb_instance.child(fb_stream_id);
+  
+  // only allow 0 and 1 pieces of data 
   // var num = fb_stream.val();
   // if(!(num < 2)) {
   //   fb_stream.remove();
@@ -109,8 +111,8 @@ function initializeTokBox() {
 
 function addContext() {
   alert(you_city + " " + you_full_name);
-  // getTweets();
-  getSports();
+  getTweets();
+  // getSports();
   getNYTimes();
   getWeather();
 }
@@ -145,7 +147,7 @@ function getTweets() {
 }
 
 function getNYTimes() {
-  $.get("/nytimes", function (data) {
+  $.get("/nytimes/", function (data) {
     console.log("Got news response back");
     
     var dataObj = JSON.parse(data);

@@ -158,7 +158,8 @@ app.get("/tweettrends", function(req, res) {
 
 
 //ny times calling api
-app.get("/nytimes", function(req, res) {
+app.get("/nytimes/:city", function(req, res) {
+    // console.log(req.)
     var lat = req.lat;
     var lon = req.lon;
 
