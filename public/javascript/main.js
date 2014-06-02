@@ -9,8 +9,8 @@ var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 var fb_instance;
 var fb_stream;
 
-var me = {id: -1, city: "", full_name: ""}
-var you = {id: -1, city: "", full_name: ""};
+var me = {id: -1, city: "", full_name: "", industry: ""}
+var you = {id: -1, city: "", full_name: "", industry: ""};
 
 var first = true;
 
@@ -42,6 +42,7 @@ function connect_to_firebase(){
     if(obj.id != me.id && obj.id != null) {
       you.city = obj.city;
       you.full_name = obj.full_name;
+      you.industry = obj.industry;
       you.id = obj.id;
       addContext();
       stallForContext();
@@ -60,6 +61,7 @@ function initChat() {
 function joinChat() {
   me.full_name = document.forms["centered_form"]["full_name"].value;
   me.city = document.forms["centered_form"]["select_city"].value;
+  me.city = document.forms["centered_form"]["select_industry"].value;
   me.id = Math.random();
 
   $(".message").hide();
@@ -68,7 +70,7 @@ function joinChat() {
 
   stallForContext();
   connect_to_firebase();
-  fb_stream.push({id: me.id, full_name: me.full_name, city: me.city});
+  fb_stream.push({id: me.id, full_name: me.full_name, city: me.city, industry: me.industry});
 }
 
 function stallForContext() {
