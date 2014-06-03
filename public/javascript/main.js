@@ -173,7 +173,7 @@ function getPartnerNameCityWeather() {
   
   $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
     var weather = Math.round(data.temp) + "&deg;F, " + data.sum;
-  
+
     $("#context_city").html(location);
     $("#context_weather").html(weather);
     $("#context_time").html(time);
@@ -312,6 +312,28 @@ function selectTab(tab) {
   $("#" + tab + "_div").fadeIn();
 }
 
+function getIconName(timePeriod, sum) {
+  var iconname = 'sunny.png';
+  
+  if (timePeriod == 'night') {
+    var iconname = 'night.png';
+  } 
+
+  if (sum.indexOf('cloudy') > -1) {
+    iconname = 'cloudy.png';
+  }
+
+  if (sum.indexOf('partly') > -1) {
+    iconname = 'partly_cloudy.png';
+  }
+
+  if (sum.indexOf('rain') > -1) {
+    iconname = 'rain.png'
+  }
+
+  return iconname;
+}
+
 //changed this to stop fetching from Flickr and just grab closest photo
 //summary is the weather summary to check if there are clouds, place is just the city name
 function getWeatherBackground(sum, place) {
@@ -323,6 +345,11 @@ function getWeatherBackground(sum, place) {
   sum = sum.toLowerCase();
   place = place.toLowerCase();
   place = place.split(' ').join('_');
+
+  iconname = getIconName(timePeriod, sum);
+  icon_url = '/images/icons/' + iconname;
+  console.log(icon_url);
+  $('#context_weather_icon').attr('src', icon_url);
 
   var photoName = timePeriod;
   if (timePeriod == 'day' && sum.indexOf('cloudy') >  -1) {
