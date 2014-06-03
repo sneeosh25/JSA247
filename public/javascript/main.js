@@ -61,7 +61,7 @@ function initChat() {
 function joinChat() {
   me.full_name = document.forms["centered_form"]["full_name"].value;
   me.city = document.forms["centered_form"]["select_city"].value;
-  me.city = document.forms["centered_form"]["select_industry"].value;
+  me.industry = document.forms["centered_form"]["select_industry"].value;
   me.id = Math.random();
 
   $(".message").hide();
@@ -120,7 +120,6 @@ function initializeTokBox() {
 
 function addContext() {
   getPartnerNameCityWeather(you.full_name, you.city);
-  getWeatherBackground(encodeURI(you.city));
   getTweets(getLat(you.city), getLong(you.city));
   getNYTimes(you.city);
   //getWeather(getLat(you.city), getLong(you.city));
@@ -131,10 +130,13 @@ function getPartnerNameCityWeather(name, location) {
   var nameDiv = document.getElementById("partnerName");
   var header = document.createElement("h4");
   var headerString = name + " | " + location;
-  $.get("/weatherData/" + getLat(you.city) + "/" + getLong(you.city), function(data) {
+  $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
     headerString += " | " + data.temp + " F, " + data.sum;
     header.innerHTML = headerString;
     nameDiv.appendChild(header);   
+
+    //now call the weather background change passing it the summary weather and place
+    getWeatherBackground(data.sum, location);
   });
 }
 
@@ -173,14 +175,6 @@ function getLong(city) {
     return 139.6917;
   }
 }
-
-function getWeatherBackground(place) {
-  $.get("/getWeatherPhoto/" + place, function (data) {
-    console.log(data);
-    var section = document.getElementById('content');
-    section.style.backgroundImage = 'url(' + data + ')';
-  });
-};
 
  
 function getTweets(lat, long) {
@@ -267,6 +261,89 @@ function getSports() {
 
       espdiv.appendChild(list);
   });
+}
+
+
+//changed this to stop fetching from Flickr and just grab closest photo
+//summary is the weather summary to check if there are clouds, place is just the city name
+function getWeatherBackground(sum, place) {
+
+  var offset = getUTCOffset(place);
+  var ld = calcTime(offset);
+  var timePeriod = getTimePeriod(ld);
+
+  sum = sum.toLowerCase();
+  place = place.toLowerCase();
+  place = place.split(' ').join('_');
+
+  var photoName = timePeriod;
+  if (timePeriod == 'day' && sum.indexOf('cloudy') >  -1) {
+    photoName += '_clouds';
+  }
+  photoName += '.jpg';
+
+  //base url
+  url = 'snapchat-for-dogs.herokuapp.com/images/weather/' + place + '/' + photoName;
+  console.log('Trying to access ' + url);
+
+  var section = document.getElementById('content');
+  section.style.backgroundImage = 'url(' + url + ')';
+};
+
+//returns string of time of day for current time. time is a date object. 
+//ex return data: 'night', 'day', 'evening', 'morning'
+function getTimePeriod(time) {
+  var hours = time.getHours();
+  if (hours > 19 || hours < 6) {
+    return 'night';
+  }
+  
+  if (hours < 11) {
+    return 'morning';
+  }
+
+  if (hours < 17) {
+    return 'day';
+  }
+
+  if (hours <= 19) {
+    return 'evening';
+  }
+}
+
+// NYC: '-4', SF: '-7', TKY: '+9', LND: '+1'
+
+//returns UTC offset in hours string depending on city name for select cities
+function getUTCOffset(city) {
+  if(city == "San Francisco") {
+    return '-7';
+  }
+  if(city == "New York") {
+    return '-4';
+  }
+  if(city == "Los Angeles") {
+    return '-7';
+  }
+  if(city == "London") {
+    return '+1';
+  }
+  if(city == "Tokyo") {
+    return '+9';
+  }
+}
+
+//returns a date object with the local time in the city of choice, given that city's UTC offset experssed 
+//in hours. usage: calctime('+5.5') would give you the date object for current local time in Mumbai  
+
+function calcTime(city_offset) {
+  d = new Date();
+  //convert to msec, add local time zone offset, get utc in msec
+  utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+
+  //create result date object for new city
+  nd = new Date(utc + (3600000*offset));
+
+  return nd;
 }
 
 
