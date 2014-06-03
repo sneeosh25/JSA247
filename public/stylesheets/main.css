@@ -114,6 +114,30 @@ div.message {
   cursor: pointer;
 }
 
+.bar_info {
+  display: inline-block;
+  color: whitesmoke;
+  font-size: 30px;
+  margin-right: 40px;
+}
+
+.bar_info_right {
+  display: inline-block;
+  color: whitesmoke;
+  margin-right: 40px;
+  font-size: 20px;
+  float: right;
+  padding: 8px;
+  border-radius: 16px;
+  border: 2px solid white;
+}
+
+.bar_info_right:hover {
+  cursor: pointer;
+  color: black;
+  background: white;
+}
+
 #tabs {
   text-align: center;
 }
@@ -146,14 +170,12 @@ div.message {
 }
 
 #horizontalBar {
-
-  margin: 3px;
-
+  padding-top: 25px;
   height:80px;
-  width:100%;
+  width:1000px;
+  margin: auto;
   float:none;
-  font-size: 
-  /*clear:none;*/
+  font-size:
 }
 
 #partnerName {

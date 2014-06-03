@@ -104,7 +104,7 @@ function initializeTokBox() {
 
   $("#news_tab").click(getNYTimes);
   $("#twitter_tab").click(getTweets);
-  $("#switch").click(changePerspective);
+  $("#context_name").click(changePerspective);
 
   var session = OT.initSession(apiKey, sessionId);
   var me_div = $("#me");
@@ -152,9 +152,6 @@ function initContext() {
 }
 
 function getPartnerNameCityWeather() {
-  var nameDiv = document.getElementById("partnerName");
-  var header = "";
-  
   var name = you.full_name;
   var location = you.city;
 
@@ -168,10 +165,13 @@ function getPartnerNameCityWeather() {
   var headerString = name + "\'s current time in " + location + " is " + time + " and it is ";
   
   $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
-    headerString +=  Math.round(data.temp) + "&deg;F, " + data.sum + " there.";
-    header = "<h4>" + headerString + "</h4>";
-    nameDiv.innerHTML = header;
-
+    var weather = Math.round(data.temp) + "&deg;F, " + data.sum;
+  
+    $("#context_city").html(location);
+    $("#context_weather").html(weather);
+    $("#context_time").html(time);
+    
+    $("#context_name").html(name + "'s context");
     //now call the weather background change passing it the summary weather and place
     getWeatherBackground(data.sum, location);
   });
