@@ -221,6 +221,10 @@ div.message {
   overflow: scroll;
 }
 
+dt.highlight {
+  color: yellow;
+}
+
 #twitter_div {
   padding: 10px;
   width: 400px;

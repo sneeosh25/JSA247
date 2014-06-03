@@ -272,7 +272,7 @@ function getNYTimes(city, industry) {
       var headline = entry.headline.main;
       var snippet = entry.snippet;
 
-      var title = "<dt>" + headline + "</dt>";
+      var title = "<dt class='highlight'>" + headline + "</dt>";
 
       var description = "<dd>" + snippet + "</dd>";
 
