@@ -12,7 +12,7 @@ var fb_stream;
 var me = {id: -1, city: "", full_name: "", industry: ""}
 var you = {id: -1, city: "", full_name: "", industry: ""};
 
-var first = true;
+var perspective = "you";
 
 $(document).ready(function(){
   initializeTokBox();
@@ -44,7 +44,7 @@ function connect_to_firebase(){
       you.full_name = obj.full_name;
       you.industry = obj.industry;
       you.id = obj.id;
-      addContext();
+      initContext();
       stallForContext();
     }
   });
@@ -55,7 +55,6 @@ function initChat() {
   $("#subheader").hide();
   $("#chat_info").css("margin-top", 40);
   $("#chat_info").fadeIn(); 
-  //$("#join_chat_btn").click(joinChat);
 }
 
 function joinChat() {
@@ -80,25 +79,14 @@ function stallForContext() {
   }
 }
 
-// var posLat;
-//   var posLong;
-//   if(navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(function(position) {
-//       posLat = position.coords.latitude;
-//       posLong = position.coords.longitude;
-//       fb_instance_stream.push(posLat);          
-//       // console.log(posLat);
-//       // console.log(posLong);
-//     }, function() {
-//       handleNoGeolocation(true);
-//     });
-//   } else {
-//     // Browser doesn't support Geolocation
-//     handleNoGeolocation(false);
-//   }
-
 function initializeTokBox() { 
   $("#start_button").click(initChat);
+  $("#show").click(toggleContext);
+  $("#hide").click(toggleContext);
+
+  $("#news_tab").click(getNYTimes);
+  $("#twitter_tab").click(getTweets);
+  $("#switch").click(changePerspective);
 
   var session = OT.initSession(apiKey, sessionId);
   var me_div = $("#me");
@@ -118,22 +106,53 @@ function initializeTokBox() {
   });
 }
 
-function addContext() {
-  getPartnerNameCityWeather(you.full_name, you.city);
-  getTweets(getLat(you.city), getLong(you.city));
-  getNYTimes(you.city);
-  //getWeather(getLat(you.city), getLong(you.city));
+function toggleContext() {
+  if($("#right").css('display') == 'none') {
+    $("#show").hide();
+    $("#you").addClass("_context");
+    $("#right").fadeIn().css("display","inline-block");
+  } else {
+    $("#right").hide();
+    $("#you").removeClass("_context");
+    $("#show").fadeIn();
+  }
+}
+
+function changePerspective() {
+  if(perspective == "you") {
+    perspective = "me";
+  } else {
+    perspective = "you";
+  }
+  getPartnerNameCityWeather();
+  getNYTimes();
+}
+
+function initContext() {
+  getPartnerNameCityWeather();
+  // getTweets(getLat(you.city), getLong(you.city));
+  getNYTimes();
+  // getWeather(getLat(you.city), getLong(you.city));
   // getSports();
 }
 
 function getPartnerNameCityWeather(name, location) {
   var nameDiv = document.getElementById("partnerName");
-  var header = document.createElement("h4");
+  var header = "";
+  
+  var name = you.full_name;
+  var location = you.city;
+
+  if(perspective == "me") {
+    name = me.full_name;
+    location = me.city;
+  }
+
   var headerString = name + " | " + location;
   $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
     headerString += " | " + data.temp + " F, " + data.sum;
-    header.innerHTML = headerString;
-    nameDiv.appendChild(header);   
+    header = "<h4>" + headerString + "</h4>";
+    nameDiv.innerHTML = header;   
 
     //now call the weather background change passing it the summary weather and place
     getWeatherBackground(data.sum, location);
@@ -177,7 +196,16 @@ function getLong(city) {
 }
 
  
-function getTweets(lat, long) {
+function getTweets() {
+  selectTab("twitter");
+
+  var lat = getLat(you.city);
+  var long = getLong(you.city);
+  if(perspective == "me") {
+    lat = getLat(me.city);
+    long = getLong(me.city);
+  }
+
   $.get("/tweettrends/" + lat + "/" + long, function (data) {
     console.log(data);
     console.log("got response back from server bitches");
@@ -203,66 +231,57 @@ function getTweets(lat, long) {
 
     var trenddiv = document.getElementById('twitter_content');
     trenddiv.appendChild(trendList);
-    $("#twitter_header").click(toggleTwitter);
   });
 }
 
-function getNYTimes(city) {
+function getNYTimes() { 
+  selectTab("news");
+
+  var city = you.city;
+  if(perspective == "me") {
+    city = me.city;
+  }
+
   $.get("/nytimes/" + city, function (data) {
     console.log("Got news response back");
     
     var dataObj = JSON.parse(data);
     var docObjs = dataObj.response.docs;
 
-    var nyList = document.createElement("dl");
+    var nyList = "<dl>";
 
     docObjs.forEach(function (entry) {
       var headline = entry.headline.main;
       var snippet = entry.snippet;
 
-      var title = document.createElement("dt");
-      title.innerHTML = headline;
+      var title = "<dt>" + headline + "</dt>";
 
-      var description = document.createElement("dd");
-      description.innerHTML = snippet;
+      var description = "<dd>" + snippet + "</dd>";
 
-      var br = document.createElement("br");
-
-      nyList.appendChild(title);
-      nyList.appendChild(description);
-      nyList.appendChild(br);
+      nyList += title;
+      nyList += description;
+      nyList += "<br/>";
 
     });
 
+    nyList += "</dl>";
+
     var nydiv = document.getElementById('news_content');
-    nydiv.appendChild(nyList);
-    $("#news_header").click(toggleNews);
+    nydiv.innerHTML = nyList;
   });
 }
 
-function getSports() {
-   $.get("/sportsData", function (data) {
-      var newsFeed = data.feed;
+function selectTab(tab) {
+  console.log(tab);
 
-      var list = document.createElement("ul");
-      
+  $("#twitter_div").hide();
+  $("#news_div").hide();
+  $("#news_tab").removeClass("selected");
+  $("#twitter_tab").removeClass("selected");
 
-      newsFeed.forEach(function (entry) {
-        var headline = entry.headline;
-        var description = entry.description;
-
-        var listItem = document.createElement("li");
-        listItem.innerHTML = headline + '\n' + description;
-
-        list.appendChild(listItem);
-      });
-
-      var espdiv = document.getElementById('espnListContainer')
-
-      espdiv.appendChild(list);
-  });
+  $("#" + tab + "_tab").addClass("selected");
+  $("#" + tab + "_div").fadeIn();
 }
-
 
 //changed this to stop fetching from Flickr and just grab closest photo
 //summary is the weather summary to check if there are clouds, place is just the city name

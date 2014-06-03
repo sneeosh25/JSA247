@@ -38,31 +38,40 @@
 	
 	<div id="horizontalBar">
 		<div id="partnerName"></div>
-
+		<div id="switch">See your context</div>
 	</div>
 
 	<section>
-		<div id="left">
-			<div id="you">
-				<div id="me"></div>
-			</div>
+		<div id="you">
+			<div id="me"></div>
 		</div>
 
+		<div id="show">Show me more info about Kenny</div>
+
 		<div id="right">
-			<div id="nydiv">
-				<h4 id="news_header" class="toggle_header">Local News</h4>
+			<div id="hide">close</div>
+			<br/>
+			<div id="tabs">
+				<span class="selected tab" id="news_tab">News</span>
+				<span class="tab_separator">|</span>
+				<span class="tab" id="linkedin_tab">Info</span>
+				<span class="tab_separator">|</span>
+				<span class="tab" id="twitter_tab">Twitter</span>
+			</div>
+			<div id="news_div">
+				<h4 id="news_header" class="toggle_header">News</h4>
 				<div id="news_content">
 				</div>
 			</div>
-			<br/>
-<!-- 
-			<div id="espnListContainer">
-			<h4>Local Sports</h4>
-			</div>
-			<br/> -->
 
-			<div id="trenddiv">
-				<h4 id="twitter_header" class="toggle_header">Trending Locally</h4>
+			<div id="linkedin_div" style="display: none;">
+				<h4 id="linkedin_header" class="toggle_header">LinkedIn</h4>
+				<div id="linkedin_content">
+				</div>
+			</div>
+
+			<div id="twitter_div" style="display: none;">
+				<h4 id="twitter_header" class="toggle_header">Twitter Trends</h4>
 				<div id="twitter_content">
 				</div>
 			</div>
