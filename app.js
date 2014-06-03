@@ -135,7 +135,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new LinkedInStrategy({
     consumerKey: LINKEDIN_API_KEY,
     consumerSecret: LINKEDIN_SECRET_KEY,
-    callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
+    callbackURL: "http://localhost:3000/auth/linkedin/callback",
     profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline', 'three-past-positions', 'three-current-positions']
   },
   function(token, tokenSecret, profile, done) {
