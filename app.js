@@ -10,7 +10,12 @@ var bodyParser = require('body-parser');
 var https = require('https');
 var espn = require('espn');
 var Twit = require('twit');
-
+var	passport = require('passport')
+var LinkedInStrategy = require('passport-linkedin').Strategy;
+var util = require('util');
+var LINKEDIN_API_KEY = '75kphyx1bjy90t';
+var LINKEDIN_SECRET_KEY = 'QWYkeSPyYQsbbuUq';
+var currentProfile;
 var T = new Twit({
   consumer_key: 'PQJV3igtLyLYLzQRG3lzsqEtS', 
   consumer_secret: 'mIfx4uX5Pif7fZl13t77GzmAGtes4db3yXtmaSv6EEvjzKnAw0', 
@@ -56,7 +61,15 @@ if (app.get('env') === 'development') {
     console.log("Now listening on port 3000");
 }
 
-
+app.configure(function() {
+  app.use(express.static('public'));
+  app.use(express.cookieParser());
+  app.use(express.bodyParser());
+  app.use(express.session({ secret: 'keyboard cat' }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(app.router);
+});
 
 // view engine setup
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -103,6 +116,86 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+
+// Use the LinkedInStrategy within Passport.
+//   Strategies in passport require a `verify` function, which accept
+//   credentials (in this case, a token, tokenSecret, and LinkedIn profile), and
+//   invoke a callback with a user object.
+
+
+passport.use(new LinkedInStrategy({
+    consumerKey: LINKEDIN_API_KEY,
+    consumerSecret: LINKEDIN_SECRET_KEY,
+    callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
+    profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline', 'three-past-positions', 'three-current-positions']
+  },
+  function(token, tokenSecret, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      // To keep the example simple, the user's LinkedIn profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the LinkedIn account with a user record in your database,
+      // and return that user instead.
+     // console.log(profile);
+     //console.log(profile);
+     currentProfile = profile
+      return done(null, profile);
+    });
+  }
+));
+
+
+app.get("/linkedIn", function(req, res) {
+	console.log(currentProfile);
+	res.send(currentProfile._json);
+});
+
+
+
+// GET /auth/linkedin
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in LinkedIn authentication will involve
+//   redirecting the user to linkedin.com.  After authorization, LinkedIn will
+//   redirect the user back to this application at /auth/linkedin/callback
+app.get('/auth/linkedin',
+  passport.authenticate('linkedin'),
+  function(req, res){
+    // The request will be redirected to LinkedIn for authentication, so this
+    // function will not be called.
+  });
+
+// GET /auth/linkedin/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/auth/linkedin/callback',
+  passport.authenticate('linkedin', { failureRedirect: '/' }),
+  function(req, res) {
+  	
+    res.redirect('/');
+    
+  });
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+}
+
 
 app.get("/getWeatherPhoto/:place", function(req, rs) {
   Flickr.tokenOnly(flickrOptions, function(error, flickr) {

@@ -9,8 +9,8 @@ var modToken = "T1==cGFydG5lcl9pZD00NDgyNTkyMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 var fb_instance;
 var fb_stream;
 
-var me = {id: -1, city: "", full_name: "", industry: ""}
-var you = {id: -1, city: "", full_name: "", industry: "", };
+var me = {id: -1, city: "", full_name: "", industry: "", linkedInPack: {}}
+var you = {id: -1, city: "", full_name: "", industry: "", linkedInPack: {}};
 
 var perspective = "you";
 
@@ -51,6 +51,7 @@ function connect_to_firebase(){
       you.full_name = obj.full_name;
       you.industry = obj.industry;
       you.id = obj.id;
+      you.linkedInPack = obj.linkedInPack;
       initContext();
       stallForContext();
     }
@@ -71,7 +72,8 @@ function joinChat() {
   me.city = document.forms["centered_form"]["select_city"].value;
   me.industry = document.forms["centered_form"]["select_industry"].value;
   me.id = Math.random();
-
+  console.log("me!!!");
+	getLinkedIn();
   // $(".message").hide();
   // $("#centered_form").hide();
   $("#wrap").hide();
@@ -80,7 +82,7 @@ function joinChat() {
 
   stallForContext();
   connect_to_firebase();
-  fb_stream.push({id: me.id, full_name: me.full_name, city: me.city, industry: me.industry});
+  fb_stream.push({id: me.id, full_name: me.full_name, city: me.city, industry: me.industry, linkedInPack: me.linkedInPack});
 }
 
 function stallForContext() {
@@ -105,6 +107,14 @@ $(window).load(function(){
   // run every 7s
   setInterval('cycleImages()', 5000);
 })
+
+ function getLinkedIn() {
+	$.get('/linkedIn', function(data) {
+		me.linkedInPack = data;
+		console.log(me);
+	});	
+}
+ 
 
 function initializeTokBox() { 
   $("#start").hide();
