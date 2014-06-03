@@ -73,11 +73,12 @@ function joinChat() {
   me.industry = document.forms["centered_form"]["select_industry"].value;
   me.id = Math.random();
   console.log("me!!!");
-	getLinkedIn();
+
   // $(".message").hide();
   // $("#centered_form").hide();
   $("#wrap").hide();
   $('#background_cycler').hide();
+  $("#header_text").hide();
   $("#waiting").fadeIn();
 
   stallForContext();
@@ -111,7 +112,8 @@ $(window).load(function(){
  function getLinkedIn() {
 	$.get('/linkedIn', function(data) {
 		me.linkedInPack = data;
-		console.log(me);
+		console.log("printing LINKEDIN ----------------------------------------");
+    console.log(me);
 	});	
 }
  
@@ -173,18 +175,24 @@ function getPartnerNameCityWeather() {
 
   var context_msg = "Switch to my context";
 
+
+  $("#constant_partner").html("Your are speaking with " + you.full_name);
+
   if(perspective == "me") {
     name = me.full_name;
     location = me.city;
     context_msg = "Switch to " + you.full_name + "'s context";
   }
 
+  $("#show").html("Show more info about " + location);
+
   curDate = calcTime(getUTCOffset(location));
   var time = curDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
   var headerString = name + "\'s current time in " + location + " is " + time + " and it is ";
   
   $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
-    var weather = Math.round(data.temp) + "&deg;F, " + data.sum;
+    var weather = Math.round(data.temp) + "&deg;F";
+    // ;" + data.sum;
 
     $("#context_city").html(location);
     $("#context_weather").html(weather);

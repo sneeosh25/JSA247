@@ -113,22 +113,22 @@ div.message {
 }
 
 #show {
-  -webkit-transform: rotate(90deg);
-  width: 166px;
-  text-align: center;
-  height: 50px;
-  background: paleturquoise;
-  font-weight: bold;
-  font-size: 13px;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 1;
-  left: 555px;
-  top: -92px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  padding: 15px;
-  padding-top: 5px;
+-webkit-transform: rotate(90deg);
+width: 199px;
+text-align: center;
+height: 50px;
+background: paleturquoise;
+font-weight: bold;
+font-size: 13px;
+text-transform: uppercase;
+position: relative;
+z-index: 1;
+left: 538px;
+top: -75px;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;
+padding: 15px;
+padding-top: 5px;
 }
 
 #show:hover, #hide:hover {
@@ -170,6 +170,11 @@ div.message {
 .selected {
   color: indianred;
   font-weight: bold;
+}
+
+#constant_partner {
+  color: white;
+  font-size: 25px;
 }
 
 #tab_separator {

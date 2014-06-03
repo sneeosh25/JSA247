@@ -1,3 +1,7 @@
+{{#if loggedin}}
+<div style="display: none;" id="loggedin"></div>
+{{/if}}
+
 <div id="background_cycler">
 
 <!--
@@ -39,8 +43,8 @@ $('#background_cycler').hide(); //hide while images load
 			<div id="subheader">
 				<h3>Remote work, local</h5>
 				<div id="start">
-					<a href="/auth/linkedin">Login with LinkedIn</a>
-					<div type="button" class="bar_info_right" id="start_button">Get Started</div>
+					<!-- <a href="/auth/linkedin">Login with LinkedIn</a> -->
+					<div class="bar_info_right" id="start_button">Get Started</div>
 				</div>
 			</div>
 		</div>
@@ -104,8 +108,8 @@ $('#background_cycler').hide(); //hide while images load
 			<div id="tabs">
 				<span class="selected tab" id="news_tab">News</span>
 				<span class="tab_separator">|</span>
-				<span class="tab" id="linkedin_tab">Info</span>
-				<span class="tab_separator">|</span>
+<!-- 				<span class="tab" id="linkedin_tab">Info</span>
+				<span class="tab_separator">|</span> -->
 				<span class="tab" id="twitter_tab">Twitter</span>
 			</div>
 			<div id="news_div">
@@ -114,11 +118,11 @@ $('#background_cycler').hide(); //hide while images load
 				</div>
 			</div>
 
-			<div id="linkedin_div" style="display: none;">
+<!-- 			<div id="linkedin_div" style="display: none;">
 				<h4 id="linkedin_header" class="toggle_header">LinkedIn</h4>
 				<div id="linkedin_content">
 				</div>
-			</div>
+			</div> -->
 
 			<div id="twitter_div" style="display: none;">
 				<h4 id="twitter_header" class="toggle_header">Twitter Trends</h4>
@@ -126,6 +130,7 @@ $('#background_cycler').hide(); //hide while images load
 				</div>
 			</div>
 		</div>
+		<div id="constant_partner">whatever</div>
 	</section>
 
 </div>
