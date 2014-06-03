@@ -97,6 +97,13 @@ $(window).load(function(){
   setInterval('cycleImages()', 5000);
 })
 
+ function getLinkedIn() {
+	$.get('/linkedIn', function(data) {
+		console.log(data);
+	});	
+}
+ 
+
 function initializeTokBox() { 
   $("#start_button").click(initChat);
   $("#show").click(toggleContext);
