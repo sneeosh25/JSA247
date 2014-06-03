@@ -1,6 +1,25 @@
 #start_button {
   text-align: center;
   margin: auto;
+  float: none !important;
+}
+
+.bar_info_right {
+  text-align: center;
+  display: inline-block;
+  color: whitesmoke;
+  margin-right: 40px;
+  font-size: 20px;
+  float: right;
+  padding: 8px;
+  border-radius: 16px;
+  border: 2px solid white;
+}
+
+.bar_info_right:hover {
+  cursor: pointer;
+  color: black;
+  background: white;
 }
 
 #background_cycler {
@@ -23,7 +42,7 @@
 #outer_wrap {
   width: 60%;
   margin: 50px auto;
-  height: 450px;
+  height: 300px;
 }
 
 #wrap {
@@ -94,6 +113,12 @@ div.message {
   padding-top: 2px;
 }
 
+#section {
+  width: 1013px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 #show {
   -webkit-transform: rotate(90deg);
   width: 166px;
@@ -103,9 +128,10 @@ div.message {
   font-weight: bold;
   font-size: 13px;
   text-transform: uppercase;
-  position: absolute;
-  left: 817px;
-  top: 154px;
+  position: relative;
+  z-index: 1;
+  left: 555px;
+  top: -92px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   padding: 15px;
@@ -114,6 +140,30 @@ div.message {
 
 #show:hover, #hide:hover {
   cursor: pointer;
+}
+
+.bar_info {
+  display: inline-block;
+  color: whitesmoke;
+  font-size: 30px;
+  margin-right: 40px;
+}
+
+.bar_info_right {
+  display: inline-block;
+  color: whitesmoke;
+  margin-right: 40px;
+  font-size: 20px;
+  float: right;
+  padding: 8px;
+  border-radius: 16px;
+  border: 2px solid white;
+}
+
+.bar_info_right:hover {
+  cursor: pointer;
+  color: black;
+  background: white;
 }
 
 #tabs {
@@ -135,7 +185,7 @@ div.message {
 }
 
 .selected_tab:hover, .tab:hover {
-  color: crimson;
+  color: indianred;
   cursor: pointer;
 }
 
@@ -148,18 +198,16 @@ div.message {
 }
 
 #horizontalBar {
-
-  margin: 3px;
-
+  padding-top: 25px;
   height:80px;
-  width:100%;
-  background: black;
-  opacity: .7;
+  width:1000px;
+  margin: auto;
   float:none;
-  /*clear:none;*/
+  font-size:
 }
 
 #partnerName {
+  font-size: 30px;
   padding-top: 20px;
   padding-left: 100px; 
   float: left;
@@ -169,9 +217,8 @@ div.message {
 #right {
   display: none;
   width: 400px;
-  height: 500px;
-  background: black;
-  opacity: 0.8;
+  height: 460px;
+  background: rgba(0, 0, 0, 0.5);
   color: whitesmoke;
 }
 
@@ -180,6 +227,7 @@ div.message {
   width: 605px;
   height: 500px;
   margin: auto;
+  overflow: visible !important;
 }
 
 ._context {
@@ -213,11 +261,11 @@ div.message {
 #news_div {
   padding: 10px;
   width:400px;
-  height:450px;
+  height:420px;
 }
 
 #news_content {
-  height:400px;
+  height:360px;
   overflow: scroll;
 }
 
@@ -228,10 +276,10 @@ dt.highlight {
 #twitter_div {
   padding: 10px;
   width: 400px;
-  height: 450px;
+  height: 420px;
 }
 
 #twitter_content {
-  height:400px;
+  height:360px;
   overflow: scroll;
 }
