@@ -9,8 +9,8 @@ var modToken = "T1==cGFydG5lcl9pZD00NDgyNTkyMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 var fb_instance;
 var fb_stream;
 
-var me = {id: -1, city: "", full_name: "", industry: ""}
-var you = {id: -1, city: "", full_name: "", industry: ""};
+var me = {id: -1, city: "", full_name: "", industry: "", linkedInPack: {}}
+var you = {id: -1, city: "", full_name: "", industry: "", linkedInPack: {}};
 
 var perspective = "you";
 
@@ -62,7 +62,8 @@ function joinChat() {
   me.city = document.forms["centered_form"]["select_city"].value;
   me.industry = document.forms["centered_form"]["select_industry"].value;
   me.id = Math.random();
-
+  console.log("me!!!");
+	getLinkedIn();
   // $(".message").hide();
   // $("#centered_form").hide();
   $("#wrap").hide();
@@ -99,7 +100,8 @@ $(window).load(function(){
 
  function getLinkedIn() {
 	$.get('/linkedIn', function(data) {
-		console.log(data);
+		me.linkedInPack=data;
+		console.log(me);
 	});	
 }
  
