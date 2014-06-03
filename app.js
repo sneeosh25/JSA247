@@ -157,9 +157,9 @@ app.get("/tweettrends/:lat/:long", function(req, res) {
 
 
 //ny times calling api
-app.get("/nytimes/:city", function(req, res) {
-    var city = req.params.city.replace(" ", "+");
-
+app.get("/nytimes/:city/:industry", function(req, res) {
+    var city = req.params.city; //spaces are still there
+    var industry = req.params.industry
     callback = function(response) {
         var str = '';
         response.on('data', function(chunk) {
@@ -171,11 +171,32 @@ app.get("/nytimes/:city", function(req, res) {
             res.send(str);
         });
     }
-
-    http.request('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + city + '&sort=newest&fl=headline,snippet&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579', callback).end();
+    api_url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=business'+ '&fq=glocations:' + getNYTGLocation(city) + '&sort=newest&fl=headline,snippet&api-key=c7e1d240b0c7722f4be0df214bc71cd1:3:69108579';
+    console.log("THE URL I AM CALLING IS: " + encodeURI(api_url));
+    http.request(encodeURI(api_url), callback).end();
 });
 
+function getFormattedIndustry(industry) {
+  return '(\"' + industry + '\")';
+}
 
+function getNYTGLocation(city) {
+  if(city == "San Francisco") {
+    return '(\"SAN FRANCISCO\")';
+  }
+  if(city == "New York") {
+    return '(\"NEW YORK CITY\")';
+  }
+  if(city == "Los Angeles") {
+    return '(\"LOS ANGELES\")';
+  }
+  if(city == "London") {
+    return '(\"LONDON\")';
+  }
+  if(city == "Tokyo") {
+    return '(\"TOKYO\")';
+  } 
+}
 
 //espn calling api
 app.get("/sportsData", function(req, res) {

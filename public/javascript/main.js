@@ -121,8 +121,7 @@ function initializeTokBox() {
 function addContext() {
   getPartnerNameCityWeather(you.full_name, you.city);
   getTweets(getLat(you.city), getLong(you.city));
-  getNYTimes(you.city);
-  //getWeather(getLat(you.city), getLong(you.city));
+  getNYTimes(you.city, you.industry);
   // getSports();
 }
 
@@ -209,8 +208,8 @@ function getTweets(lat, long) {
   });
 }
 
-function getNYTimes(city) {
-  $.get("/nytimes/" + city, function (data) {
+function getNYTimes(city, industry) {
+  $.get("/nytimes/" + city + '/' + industry, function (data) {
     console.log("Got news response back");
     
     var dataObj = JSON.parse(data);
