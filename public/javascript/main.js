@@ -80,6 +80,22 @@ function stallForContext() {
   }
 }
 
+
+function cycleImages() {
+  var $active = $('#background_cycler .active');
+  var $next = ($('#background_cycler .active').next().length > 0) ? $('#background_cycler .active').next() : $('#background_cycler img:first');
+  $next.css('z-index', 2); //move the next image up the pile
+  $active.fadeOut(1500, function() { //fade out top img
+    $active.css('z-index', 1).show().removeClass('active'); //resetting z index and unhide image
+    $next.css('z-index',3).addClass('active'); //next image at top and make active
+  });
+}
+
+$(window).load(function(){
+  $('#background_cycler'.fadeIn(1500)); //fade background cycler back in
+  setInterval('cycleImages()', 7000);
+})
+
 // var posLat;
 //   var posLong;
 //   if(navigator.geolocation) {
