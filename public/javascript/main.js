@@ -341,7 +341,7 @@ function calcTime(city_offset) {
   utc = d.getTime() + (d.getTimezoneOffset() * 60000);
 
   //create result date object for new city
-  nd = new Date(utc + (3600000*offset));
+  nd = new Date(utc + (3600000*city_offset));
 
   return nd;
 }
