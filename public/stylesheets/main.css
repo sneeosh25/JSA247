@@ -20,6 +20,19 @@
 
 #background_cycler img.active{z-index: 3}
 
+#outer_wrap {
+  width: 60%;
+  margin: 50px auto;
+  height: 400px;
+}
+
+#wrap {
+  padding-top: 20px;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+
+
 section {
   width: 90%;
   height: 1000px;
@@ -35,6 +48,8 @@ div.message {
 }
 
 #welcome {
+  color: white;
+  font-size: 40px;
 }
 
 #start {
