@@ -1,8 +1,10 @@
 <div id="background_cycler">
 
+<!--
 <script type = "text/javascript">
 $('#background_cycler').hide(); //hide while images load
 </script>
+-->
 
 	<img class="active" src="http://snapchat-for-dogs.herokuapp.com/images/weather/san_francisco/day.jpg" alt=""/>
 	<img src="http://snapchat-for-dogs.herokuapp.com/images/weather/new_york/day.jpg" alt=""/>
@@ -27,14 +29,19 @@ $('#background_cycler').hide(); //hide while images load
 
 	<div id="wrap">
 		<div class="message">
-			<h2 id="welcome">Remote No More.<br/>
-				<small id="subheader">Click the button below to get started.</small>
-			</h2>
+			<h2 id="welcome">Remote No More:</h2>
+			<h1 id="title">Contextify</h1>
+			<div id="subheader">
+				<h3> Be with your work colleagues in their locale...even miles and timezones apart.</h5>
+				<div id="start">
+					<button type="button" class="btn btn-primary" id="start_button">Get Started</button>
+				</div>
+
+				<h3>Spark Conversation. Feel Together. Build Empathy.</h5>
+			</div>
 		</div>
 
-		<div id="start">
-			<button type="button" class="btn btn-primary" id="start_button">Get Started</button>
-		</div>
+		
 
 		<div id="chat_info">
 			<form id="centered_form" name="joinChat" action="javascript:joinChat();">
@@ -97,7 +104,7 @@ $('#background_cycler').hide(); //hide while images load
 				<span class="tab" id="twitter_tab">Twitter</span>
 			</div>
 			<div id="news_div">
-				<h4 id="news_header" class="toggle_header">News</h4>
+				<h3 id="news_header" class="toggle_header">News</h3>
 				<div id="news_content">
 				</div>
 			</div>

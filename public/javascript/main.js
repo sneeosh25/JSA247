@@ -66,7 +66,7 @@ function joinChat() {
   // $(".message").hide();
   // $("#centered_form").hide();
   $("#wrap").hide();
-  $('#background_cycler').fadeOut();
+  $('#background_cycler').hide();
   $("#waiting").fadeIn();
 
   stallForContext();
@@ -94,7 +94,7 @@ function cycleImages(){
 $(window).load(function(){
   $('#background_cycler').fadeIn(1500);//fade the background back in once all the images are loaded
   // run every 7s
-  setInterval('cycleImages()', 7000);
+  setInterval('cycleImages()', 5000);
 })
 
 function initializeTokBox() { 
@@ -275,7 +275,7 @@ function getNYTimes(city, industry) {
       var headline = entry.headline.main;
       var snippet = entry.snippet;
 
-      var title = "<dt>" + headline + "</dt>";
+      var title = "<dt class='highlight'>" + headline + "</dt>";
 
       var description = "<dd>" + snippet + "</dd>";
 
