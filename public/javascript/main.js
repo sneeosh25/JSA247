@@ -283,11 +283,13 @@ function getWeatherBackground(sum, place) {
   photoName += '.jpg';
 
   //base url
-  url = 'snapchat-for-dogs.herokuapp.com/images/weather/' + place + '/' + photoName;
+  url = 'http://snapchat-for-dogs.herokuapp.com/images/weather/' + place + '/' + photoName;
   console.log('Trying to access ' + url);
 
   var section = document.getElementById('content');
-  section.style.backgroundImage = 'url(' + url + ')';
+
+  console.log("url(\'" + url + "\')");
+  section.style.backgroundImage = "url(\'" + url + "\')";
 };
 
 //returns string of time of day for current time. time is a date object. 
