@@ -63,8 +63,9 @@ function joinChat() {
   me.industry = document.forms["centered_form"]["select_industry"].value;
   me.id = Math.random();
 
-  $(".message").hide();
-  $("#centered_form").hide();
+  // $(".message").hide();
+  // $("#centered_form").hide();
+  $("#wrap").hide();
   $('#background_cycler').fadeOut();
   $("#waiting").fadeIn();
 
@@ -75,7 +76,7 @@ function joinChat() {
 
 function stallForContext() {
   if(you.id != -1 && me.id != -1) {
-    $("#chat_info").hide();
+    $("#outer_wrap").hide();
     $("#content").fadeIn();
   }
 }
