@@ -110,10 +110,10 @@ function initializeTokBox() {
   var me_div = $("#me");
 
   session.on("streamCreated", function(event) {
-    var props = {insertMode: "preppend", width: 605, height: 500};
+    var props = {insertMode: "preppend", width: 613, height: 460};
     session.subscribe(event.stream, "you", props);
-    $("#me").css("left", 440);
-    $("#me").css("top", 340);
+    $("#me").css("left", 458);
+    $("#me").css("top", 305);
     console.log(session.data);
   });
 
@@ -219,9 +219,11 @@ function getTweets() {
 
   var lat = getLat(you.city);
   var long = getLong(you.city);
+  var city = you.city;
   if(perspective == "me") {
     lat = getLat(me.city);
     long = getLong(me.city);
+    city = me.city;
   }
 
   $.get("/tweettrends/" + lat + "/" + long, function (data) {
@@ -247,6 +249,7 @@ function getTweets() {
 
     var trenddiv = document.getElementById('twitter_content');
     trenddiv.innerHTML = trendList;
+    $("#twitter_header").html("Trending tweets near " + city);
   });
 }
 
@@ -286,6 +289,7 @@ function getNYTimes(city, industry) {
 
     var nydiv = document.getElementById('news_content');
     nydiv.innerHTML = nyList;
+    $("#news_header").html(industry + " related news near " + city);
   });
 }
 
