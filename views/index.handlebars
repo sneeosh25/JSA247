@@ -1,38 +1,71 @@
-<div class="message">
-	<h2 id="welcome">Welcome to Snapchat For Dogs!<br/>
-		<small id="subheader">Click the button below to get started.</small>
-	</h2>
+<div id="background_cycler">
+
+<script type = "text/javascript">
+$('#background_cycler').hide(); //hide while images load
+</script>
+
+	<img class="active" src="http://snapchat-for-dogs.herokuapp.com/images/weather/san_francisco/day.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/weather/new_york/day.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/weather/los_angeles/day.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/weather/london/day.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/weather/tokyo/day.jpg" alt=""/>
+
+<!--
+	<img class="active" src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background1.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background2.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background3.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background4.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background5.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background6.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background7.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background8.jpg" alt=""/>
+	<img src="http://snapchat-for-dogs.herokuapp.com/images/backgrounds/background9.jpg" alt=""/>
+-->
 </div>
 
-<div id="start">
-	<button type="button" class="btn btn-primary" id="start_button">Get Started</button>
+<div id="outer_wrap">
+
+	<div id="wrap" >
+		<div class="message">
+			<h2 id="welcome">Remote No More.<br/>
+				<small id="subheader">Click the button below to get started.</small>
+			</h2>
+		</div>
+
+		<div id="start">
+			<button type="button" class="btn btn-primary" id="start_button">Get Started</button>
+		</div>
+
+		<div id="chat_info">
+			<form id="centered_form" name="joinChat" action="javascript:joinChat();">
+			  	<div class="form-group">
+			    	<input name="full_name" class="form-control" id="first_name" placeholder="Enter your full name">
+			  	</div>
+			  	<select name="select_industry" class="form-control" id="select_indsutry">
+					<option>--- Select your industry ---</option>
+					<option>Technology</option>
+					<option>Business</option>
+					<option>Health</option>
+					<option>Art</option>
+					<option>Sports</option>
+					<option>Science</option>
+				</select>
+			  	<select name="select_city" class="form-control" id="select_city">
+					<option>--- Select your city ---</option>
+					<option>New York</option>
+					<option>Los Angeles</option>
+					<option>San Francisco</option>
+					<option>London</option>
+					<option>Tokyo</option>
+				</select>
+			  	<button type="submit" class="btn btn-primary" id="join_chat_btn">Join Video Chat</button>
+			</form>
+			<h4 id="waiting">Waiting for your conversation partner...</h4>
+		</div>
+	</div>
+
 </div>
 
-<div id="chat_info">
-	<form id="centered_form" name="joinChat" action="javascript:joinChat();">
-	  	<div class="form-group">
-	    	<input name="full_name" class="form-control" id="first_name" placeholder="Enter your full name">
-	  	</div>
-	  	<select name="select_industry" class="form-control" id="select_indsutry">
-			<option>--- Select your industry ---</option>
-			<option>Technology</option>
-			<option>Business</option>
-			<option>Health</option>
-			<option>Art</option>
-			<option>Whatever</option>
-		</select>
-	  	<select name="select_city" class="form-control" id="select_city">
-			<option>--- Select your city ---</option>
-			<option>New York</option>
-			<option>Los Angeles</option>
-			<option>San Francisco</option>
-			<option>London</option>
-			<option>Tokyo</option>
-		</select>
-	  	<button type="submit" class="btn btn-primary" id="join_chat_btn">Join Video Chat</button>
-	</form>
-	<h4 id="waiting">Waiting for your conversation partner...</h4>
-</div>
 
 <div id="content">
 	

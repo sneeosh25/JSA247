@@ -1,10 +1,10 @@
 //Main.js
 
-var apiKey = "44754112";
-var sessionId = "1_MX40NDc1NDExMn5-TW9uIE1heSAwNSAyMjo0Njo1NiBQRFQgMjAxNH4wLjE3MjQ1MjU3flB-";
-var subToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1lYWI3NDc2ZWY0NDhhMjQ0ODFmM2M1OGVmZDc3ZGUzMGUxMjAxNDNlOnJvbGU9c3Vic2NyaWJlciZzZXNzaW9uX2lkPTFfTVg0ME5EYzFOREV4TW41LVRXOXVJRTFoZVNBd05TQXlNam8wTmpvMU5pQlFSRlFnTWpBeE5INHdMakUzTWpRMU1qVTNmbEItJmNyZWF0ZV90aW1lPTEzOTkzNTUyMzMmbm9uY2U9MC43MzE0MDMxOTMyNTkxMzAyJmV4cGlyZV90aW1lPTE0MDE5NDcyMTAmY29ubmVjdGlvbl9kYXRhPQ==";
-var pubToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1mMTA4NGFkNGQ2YWFiNjBiOGFmZDc1OTFlZmI5ZWQyNDhmNTQ0NDA2OnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9MV9NWDQwTkRjMU5ERXhNbjUtVFc5dUlFMWhlU0F3TlNBeU1qbzBOam8xTmlCUVJGUWdNakF4Tkg0d0xqRTNNalExTWpVM2ZsQi0mY3JlYXRlX3RpbWU9MTM5OTM1NTI0NiZub25jZT0wLjQ2MzAzOTY3MTM3NjQ0Mjc1JmV4cGlyZV90aW1lPTE0MDE5NDcyMTAmY29ubmVjdGlvbl9kYXRhPQ==";
-var modToken = "T1==cGFydG5lcl9pZD00NDc1NDExMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1mYzQxNTBkM2RlYTFlN2Q1MGRhM2ZkYWRhYWM2MzgxNTczZTI5YzRkOnJvbGU9bW9kZXJhdG9yJnNlc3Npb25faWQ9MV9NWDQwTkRjMU5ERXhNbjUtVFc5dUlFMWhlU0F3TlNBeU1qbzBOam8xTmlCUVJGUWdNakF4Tkg0d0xqRTNNalExTWpVM2ZsQi0mY3JlYXRlX3RpbWU9MTM5OTM1NTI2OCZub25jZT0wLjM1NzMzNTkxNTAwOTkwOSZleHBpcmVfdGltZT0xNDAxOTQ3MjEwJmNvbm5lY3Rpb25fZGF0YT0=";
+var apiKey = "44825922";
+var sessionId = "1_MX40NDgyNTkyMn5-TW9uIEp1biAwMiAyMzozOToxOCBQRFQgMjAxNH4wLjk1NDE5MjY0flB-";
+var subToken = "T1==cGFydG5lcl9pZD00NDgyNTkyMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz03YjkxZGZmNjNjMzdlNGViNmZmNDM0NDI0MGM5ZjVlZWMwZDg0Mzg2OnJvbGU9c3Vic2NyaWJlciZzZXNzaW9uX2lkPTFfTVg0ME5EZ3lOVGt5TW41LVRXOXVJRXAxYmlBd01pQXlNem96T1RveE9DQlFSRlFnTWpBeE5INHdMamsxTkRFNU1qWTBmbEItJmNyZWF0ZV90aW1lPTE0MDE3Nzc2MjUmbm9uY2U9MC41MjQ4MTk1OTIxOTkzMzU2JmV4cGlyZV90aW1lPTE0MDQzNjk1NDgmY29ubmVjdGlvbl9kYXRhPQ==";
+var pubToken = "T1==cGFydG5lcl9pZD00NDgyNTkyMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz0yN2RkYzE4MGYxNjdmNGIxM2U3NjQ0NjBjMTEzODY4YjEzZjY5MjJjOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9MV9NWDQwTkRneU5Ua3lNbjUtVFc5dUlFcDFiaUF3TWlBeU16b3pPVG94T0NCUVJGUWdNakF4Tkg0d0xqazFOREU1TWpZMGZsQi0mY3JlYXRlX3RpbWU9MTQwMTc3NzU3MCZub25jZT0wLjA1NTMzNDg2MTY5MDMxNDIxJmV4cGlyZV90aW1lPTE0MDQzNjk1NDgmY29ubmVjdGlvbl9kYXRhPQ==";
+var modToken = "T1==cGFydG5lcl9pZD00NDgyNTkyMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz01NDhkYjRiNmNmZjJjNzk1MGRiMWY0Y2FiNmVmYmUxMjM5M2U4MDQ0OnJvbGU9bW9kZXJhdG9yJnNlc3Npb25faWQ9MV9NWDQwTkRneU5Ua3lNbjUtVFc5dUlFcDFiaUF3TWlBeU16b3pPVG94T0NCUVJGUWdNakF4Tkg0d0xqazFOREU1TWpZMGZsQi0mY3JlYXRlX3RpbWU9MTQwMTc3NzY4MCZub25jZT0wLjIzNTEzNzAwNDI0MTM5NjA1JmV4cGlyZV90aW1lPTE0MDQzNjk1NDgmY29ubmVjdGlvbl9kYXRhPQ==";
 
 var fb_instance;
 var fb_stream;
@@ -65,6 +65,7 @@ function joinChat() {
 
   $(".message").hide();
   $("#centered_form").hide();
+  $('#background_cycler').fadeOut();
   $("#waiting").fadeIn();
 
   stallForContext();
@@ -78,6 +79,22 @@ function stallForContext() {
     $("#content").fadeIn();
   }
 }
+
+function cycleImages(){
+  var $active = $('#background_cycler .active');
+  var $next = ($('#background_cycler .active').next().length > 0) ? $('#background_cycler .active').next() : $('#background_cycler img:first');
+  $next.css('z-index',2);//move the next image up the pile
+  $active.fadeOut(1500,function(){//fade out the top image
+    $active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
+    $next.css('z-index',3).addClass('active');//make the next image the top one
+  });
+}
+
+$(window).load(function(){
+  $('#background_cycler').fadeIn(1500);//fade the background back in once all the images are loaded
+  // run every 7s
+  setInterval('cycleImages()', 7000);
+})
 
 function initializeTokBox() { 
   $("#start_button").click(initChat);
@@ -130,13 +147,10 @@ function changePerspective() {
 
 function initContext() {
   getPartnerNameCityWeather();
-  // getTweets(getLat(you.city), getLong(you.city));
   getNYTimes();
-  // getWeather(getLat(you.city), getLong(you.city));
-  // getSports();
 }
 
-function getPartnerNameCityWeather(name, location) {
+function getPartnerNameCityWeather() {
   var nameDiv = document.getElementById("partnerName");
   var header = "";
   
@@ -148,11 +162,14 @@ function getPartnerNameCityWeather(name, location) {
     location = me.city;
   }
 
-  var headerString = name + " | " + location;
+  curDate = calcTime(getUTCOffset(location));
+  var time = curDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+  var headerString = name + "\'s current time in " + location + " is " + time + " and it is ";
+  
   $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
-    headerString += " | " + data.temp + " F, " + data.sum;
+    headerString +=  Math.round(data.temp) + "&deg;F, " + data.sum + " there.";
     header = "<h4>" + headerString + "</h4>";
-    nameDiv.innerHTML = header;   
+    nameDiv.innerHTML = header;
 
     //now call the weather background change passing it the summary weather and place
     getWeatherBackground(data.sum, location);
@@ -214,35 +231,35 @@ function getTweets() {
     var trnds = data.trends;
     console.log(trnds);
 
-    var trendList = document.createElement("ul");
+    var trendList = "<ul>";
 
     trnds.forEach(function (entry) {
       var name = entry.name;
       var url = entry.url;
 
-      var trendElement = document.createElement("li");
-      var a = document.createElement("a");
-      a.textContent = name;
-      a.setAttribute('href', url);
-      a.setAttribute('target', "_blank");
-      trendElement.appendChild(a);
-      trendList.appendChild(trendElement);
+      var trendElement = "<li>";
+      var a = "<a href='" + url + "' target='_blank'>" + name + "</a>";
+
+      trendElement += a + "</li>";
+      trendList += trendElement;
     });
 
     var trenddiv = document.getElementById('twitter_content');
-    trenddiv.appendChild(trendList);
+    trenddiv.innerHTML = trendList;
   });
 }
 
-function getNYTimes() { 
+function getNYTimes(city, industry) {
   selectTab("news");
 
   var city = you.city;
+  var industry = you.industry;
   if(perspective == "me") {
     city = me.city;
+    industry = me.industry;
   }
 
-  $.get("/nytimes/" + city, function (data) {
+  $.get("/nytimes/" + city + '/' + industry, function (data) {
     console.log("Got news response back");
     
     var dataObj = JSON.parse(data);

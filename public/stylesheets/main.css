@@ -3,6 +3,36 @@
   margin: auto;
 }
 
+#background_cycler {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; 
+}
+
+#background_cycler img{
+  position: absolute; left:0; top: 0; width: 100%; z-index: 1;
+}
+
+#background_cycler img.active{z-index: 3}
+
+#outer_wrap {
+  width: 60%;
+  margin: 50px auto;
+  height: 400px;
+}
+
+#wrap {
+  padding-top: 20px;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+
+
 section {
   width: 90%;
   height: 1000px;
@@ -18,6 +48,8 @@ div.message {
 }
 
 #welcome {
+  color: white;
+  font-size: 40px;
 }
 
 #start {
@@ -169,7 +201,7 @@ div.message {
 }
 
 #news_div {
-  padding: 5px;
+  padding: 10px;
   width:400px;
   height:450px;
 }
@@ -180,8 +212,12 @@ div.message {
 }
 
 #twitter_div {
-  padding: 5px;
+  padding: 10px;
   width: 400px;
-  height: 200px;
-  overflow: hidden;
+  height: 450px;
+}
+
+#twitter_content {
+  height:400px;
+  overflow: scroll;
 }
