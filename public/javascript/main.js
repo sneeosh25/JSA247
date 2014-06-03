@@ -176,7 +176,7 @@ function getPartnerNameCityWeather() {
   var context_msg = "Switch to my context";
 
 
-  $("#constant_partner").html("Your are speaking with " + you.full_name);
+  $("#constant_partner").html("You are now speaking with " + you.full_name);
 
   if(perspective == "me") {
     name = me.full_name;

@@ -40,6 +40,7 @@
 #wrap {
   padding-top: 20px;
   background-color: rgba(0,0,0,0.7);
+  border-radius: 30px;
 }
 
 
@@ -117,7 +118,7 @@ div.message {
 width: 199px;
 text-align: center;
 height: 50px;
-background: paleturquoise;
+background: indianred;
 font-weight: bold;
 font-size: 13px;
 text-transform: uppercase;
@@ -175,6 +176,8 @@ padding-top: 5px;
 #constant_partner {
   color: white;
   font-size: 25px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 10px;
 }
 
 #tab_separator {
@@ -201,7 +204,7 @@ padding-top: 5px;
   width:1000px;
   margin: auto;
   float:none;
-  font-size:
+  margin-bottom: 20px;
 }
 
 #partnerName {
@@ -263,7 +266,7 @@ padding-top: 5px;
 }
 
 #news_content {
-  height:360px;
+  height:320px;
   overflow: scroll;
 }
 
@@ -278,6 +281,6 @@ dt.highlight {
 }
 
 #twitter_content {
-  height:360px;
+  height:320px;
   overflow: scroll;
 }
