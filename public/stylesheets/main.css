@@ -284,3 +284,14 @@ dt.highlight {
   height:320px;
   overflow: scroll;
 }
+
+#linkedin_div {
+  padding: 10px;
+  width: 400px;
+  height: 420px;
+}
+
+#linkedin_content {
+  height:320px;
+  overflow: scroll;
+}

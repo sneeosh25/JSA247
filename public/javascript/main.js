@@ -16,13 +16,19 @@ var perspective = "you";
 
 $(document).ready(function(){
   // initializeTokBox();
-  $("#start_button").click(initChat);
+  // $("#start_button").click(initChat);
   $("#show").click(toggleContext);
   $("#hide").click(toggleContext);
 
   $("#news_tab").click(getNYTimes);
+  $("#linkedin_tab").click(showLinkedIn);
   $("#twitter_tab").click(getTweets);
   $("#context_name").click(changePerspective);
+
+  if($("#loggedin").length) {
+    initChat();
+    getLinkedIn();
+  }
 });
 
 function toggleNews() {
@@ -280,7 +286,43 @@ function getTweets() {
   });
 }
 
-function getNYTimes(city, industry) {
+function showLinkedIn() {
+  selectTab("linkedin");
+
+  var linkedInPack = you.linkedInPack;
+  if(perspective == "me") {
+    linkedInPack = me.linkedInPack;
+  }
+    
+  var name = linkedInPack.firstName + " " + linkedInPack.lastName;
+  var linkedinObj = "<h4>" + name + "</h5>";
+  linkedinObj += "<h5>" + linkedInPack.headline + "</h5>";
+
+  // var nyList = "<dl>";
+
+  // docObjs.forEach(function (entry) {
+  //   var headline = entry.headline.main;
+  //   var snippet = entry.snippet;
+
+  //   var title = "<dt class='highlight'>" + headline + "</dt>";
+
+  //   var description = "<dd>" + snippet + "</dd>";
+
+  //   nyList += title;
+  //   nyList += description;
+  //   nyList += "<br/>";
+
+  // });
+
+  // nyList += "</dl>";
+
+  var linkedindiv = document.getElementById('linkedin_content');
+  
+  linkedindiv.innerHTML = linkedinObj;
+  $("#linkedin_header").html(name + "'s LinkedIn Profile");
+}
+
+function getNYTimes() {
   selectTab("news");
 
   var city = you.city;
@@ -325,7 +367,9 @@ function selectTab(tab) {
 
   $("#twitter_div").hide();
   $("#news_div").hide();
+  $("#linkedin_div").hide();
   $("#news_tab").removeClass("selected");
+  $("#linkedin_tab").removeClass("selected");
   $("#twitter_tab").removeClass("selected");
 
   $("#" + tab + "_tab").addClass("selected");

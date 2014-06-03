@@ -87,7 +87,7 @@ app.use(app.router);
 
 // Declare your routes here
 app.get('/', routes.index);
-app.get('/:status', routes.index);
+app.get('/loggedin', routes.loggedin);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -182,9 +182,9 @@ app.get('/auth/linkedin',
 app.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/' }),
   function(req, res) {
-  	
-    res.redirect('/yes');
-    
+  	console.log("redirect to yes");
+    console.log(currentProfile);
+    res.redirect('/loggedin');
   });
 
 app.get('/logout', function(req, res){
