@@ -10,12 +10,19 @@ var fb_instance;
 var fb_stream;
 
 var me = {id: -1, city: "", full_name: "", industry: ""}
-var you = {id: -1, city: "", full_name: "", industry: ""};
+var you = {id: -1, city: "", full_name: "", industry: "", };
 
 var perspective = "you";
 
 $(document).ready(function(){
-  initializeTokBox();
+  // initializeTokBox();
+  $("#start_button").click(initChat);
+  $("#show").click(toggleContext);
+  $("#hide").click(toggleContext);
+
+  $("#news_tab").click(getNYTimes);
+  $("#twitter_tab").click(getTweets);
+  $("#context_name").click(changePerspective);
 });
 
 function toggleNews() {
@@ -51,10 +58,12 @@ function connect_to_firebase(){
 }
 
 function initChat() {
-  $("#start").hide();
-  $("#subheader").hide();
-  $("#chat_info").css("margin-top", 40);
-  $("#chat_info").fadeIn(); 
+  initializeTokBox();
+
+  // $("#start").hide();
+  // $("#subheader").hide();
+  // $("#chat_info").css("margin-top", 40);
+  // $("#chat_info").fadeIn(); 
 }
 
 function joinChat() {
@@ -98,14 +107,11 @@ $(window).load(function(){
 })
 
 function initializeTokBox() { 
-  $("#start_button").click(initChat);
-  $("#show").click(toggleContext);
-  $("#hide").click(toggleContext);
-
-  $("#news_tab").click(getNYTimes);
-  $("#twitter_tab").click(getTweets);
-  $("#context_name").click(changePerspective);
-
+  $("#start").hide();
+  $("#subheader").hide();
+  $("#chat_info").css("margin-top", 40);
+  $("#chat_info").fadeIn();
+    
   var session = OT.initSession(apiKey, sessionId);
   var me_div = $("#me");
 
@@ -132,7 +138,7 @@ function toggleContext() {
   } else {
     $("#right").hide();
     $("#you").removeClass("_context");
-    $("#show").fadeIn();
+    $("#show").fadeIn("");
   }
 }
 
@@ -155,9 +161,12 @@ function getPartnerNameCityWeather() {
   var name = you.full_name;
   var location = you.city;
 
+  var context_msg = "Switch to my context";
+
   if(perspective == "me") {
     name = me.full_name;
     location = me.city;
+    context_msg = "Switch to " + you.full_name + "'s context";
   }
 
   curDate = calcTime(getUTCOffset(location));
@@ -171,7 +180,7 @@ function getPartnerNameCityWeather() {
     $("#context_weather").html(weather);
     $("#context_time").html(time);
     
-    $("#context_name").html(name + "'s context");
+    $("#context_name").html(context_msg);
     //now call the weather background change passing it the summary weather and place
     getWeatherBackground(data.sum, location);
   });

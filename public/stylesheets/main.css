@@ -1,25 +1,17 @@
+#header_text {
+  margin: 45px auto;
+  text-align: center;
+}
+
+#header_block {
+  display: inline-block;
+  margin: 0px 40px;
+}
+
 #start_button {
   text-align: center;
   margin: auto;
   float: none !important;
-}
-
-.bar_info_right {
-  text-align: center;
-  display: inline-block;
-  color: whitesmoke;
-  margin-right: 40px;
-  font-size: 20px;
-  float: right;
-  padding: 8px;
-  border-radius: 16px;
-  border: 2px solid white;
-}
-
-.bar_info_right:hover {
-  cursor: pointer;
-  color: black;
-  background: white;
 }
 
 #background_cycler {
@@ -47,7 +39,6 @@
 
 #wrap {
   padding-top: 20px;
-  height: 100%;
   background-color: rgba(0,0,0,0.7);
 }
 
@@ -83,11 +74,13 @@ div.message {
 #start {
   text-align: center;
   margin-top: 60px;
+    height: 80px;
 }
 
 #chat_info {
   display: none;
   text-align: center;
+  height: 215px;
 }
 
 #join_chat_btn {
@@ -162,8 +155,8 @@ div.message {
 
 .bar_info_right:hover {
   cursor: pointer;
-  color: black;
-  background: white;
+  color: indianred;
+  border-color: indianred;
 }
 
 #tabs {
