@@ -23,13 +23,13 @@
 #outer_wrap {
   width: 60%;
   margin: 50px auto;
-  height: 400px;
+  height: 450px;
 }
 
 #wrap {
   padding-top: 20px;
   height: 100%;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.7);
 }
 
 
@@ -50,6 +50,15 @@ div.message {
 #welcome {
   color: white;
   font-size: 40px;
+}
+
+#title {
+  color: white;
+  font-size: 70px;
+}
+
+#subheader {
+  color: AliceBlue;
 }
 
 #start {

@@ -66,7 +66,7 @@ function joinChat() {
   // $(".message").hide();
   // $("#centered_form").hide();
   $("#wrap").hide();
-  $('#background_cycler').fadeOut();
+  $('#background_cycler').hide();
   $("#waiting").fadeIn();
 
   stallForContext();
