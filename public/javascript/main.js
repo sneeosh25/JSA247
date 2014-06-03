@@ -130,11 +130,10 @@ function getPartnerNameCityWeather(name, location) {
   var nameDiv = document.getElementById("partnerName");
   var header = document.createElement("h4");
   curDate = calcTime(getUTCOffset(location));
-  var time = curDate.toLocaleTimeString();
-  console.log(time);
-  var headerString = name + " | The current time in " + location + " is " + time + " and it is ";
+  var time = curDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+  var headerString = name + "\'s current time in " + location + " is " + time + " and it is ";
   $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
-    headerString +=  data.temp + " F, " + data.sum + ".";
+    headerString +=  Math.round(data.temp) + "&deg;F, " + data.sum + " there.";
     header.innerHTML = headerString;
     nameDiv.appendChild(header);   
 
