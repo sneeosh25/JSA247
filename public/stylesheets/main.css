@@ -9,10 +9,10 @@ body {
 
 #header_text {
   margin: 45px auto;
+  margin-top: 80px;
   text-align: center;
   color: aliceblue;
   font-family: c_l;
-  text-transform:uppercase;
 }
 
 #header_block {
@@ -20,11 +20,34 @@ body {
   margin: 0px 40px;
 }
 
+.custom_button {
+  font-weight: bold;
+  border: 2px solid aliceblue;
+  text-transform: uppercase;
+  display: inline-block;
+  color: aliceblue;
+  padding: 8px;
+  border: 2px solid white;
+}
+
+.custom_button:hover {
+  cursor: pointer;
+  color: indianred;
+  border-color: indianred;
+  text-decoration: none;
+}
+
+.bar_info_right {
+  margin-right: 40px;
+  font-size: 20px;
+  float: right;
+}
+
 #start_button {
   text-align: center;
   margin: auto;
   float: none !important;
-  text-transform:uppercase;
+  font-size: 35px;
 }
 
 #background_cycler {
@@ -87,7 +110,8 @@ div.message {
 
 #title {
   color: white;
-  font-size: 70px;
+  font-size: 90px;
+  text-transform:uppercase;
 }
 
 #subheader {
