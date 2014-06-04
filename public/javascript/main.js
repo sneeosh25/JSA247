@@ -182,9 +182,9 @@ function getPartnerNameCityWeather() {
   var context_msg = "See my info";
 
   if(perspective == "me") {
+    context_msg = "See " + name + "'s info";
     name = me.linkedInPack.firstName;
     location = me.city;
-    context_msg = "See " + name + "'s info";
   }
 
   $("#show").html("Show more info about " + location);
@@ -296,14 +296,14 @@ function showLinkedIn() {
   var linkedinObj = "<h5>" + linkedInPack.headline + "</h5>";
   var pastPositions = linkedInPack.threePastPositions.values;
   var curPositions = linkedInPack.threeCurrentPositions.values;
-  if(curPositions) {
-  var curPosStr = "<h4 font-family:'s_f'>Current positions </h4>" ;
-  for ( var i = 0; i < curPositions.length; i++) {
-  		curPosStr += "<dt class='highlight' font-family:'c_g'>"+curPositions[i].company.name + "</dt>";
-  		curPosStr += "<dd font-family:'c_g'>" + curPositions[i].title + "</dd>";
-  }
-  linkedinObj += curPositions;
-  }
+  // if(curPositions) {
+  // var curPosStr = "<h4 font-family:'s_f'>Current positions </h4>" ;
+  // for ( var i = 0; i < curPositions.length; i++) {
+  // 		curPosStr += "<dt class='highlight' font-family:'c_g'>"+curPositions[i].company.name + "</dt>";
+  // 		curPosStr += "<dd font-family:'c_g'>" + curPositions[i].title + "</dd>";
+  // }
+  // linkedinObj += curPositions;
+  // }
   if(pastPositions) {
   	var pastPosStr = "<h4 font-family:'s_f'>Past positions </h4>" ; 
   
