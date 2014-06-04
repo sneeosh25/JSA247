@@ -1,7 +1,18 @@
+@font-face {
+  font-family: c_l;
+  src: url(/fonts/c_l.ttf);
+}
+
+body {
+  font-family: c_l;
+}
+
 #header_text {
   margin: 45px auto;
   text-align: center;
-  color: white;
+  color: aliceblue;
+  font-family: c_l;
+  text-transform:uppercase;
 }
 
 #header_block {
@@ -13,6 +24,7 @@
   text-align: center;
   margin: auto;
   float: none !important;
+  text-transform:uppercase;
 }
 
 #background_cycler {
@@ -46,6 +58,7 @@
   width: 60%;
   margin: 50px auto;
   height: 300px;
+  font-family: c_l;
 }
 
 #wrap {
@@ -147,20 +160,20 @@ padding-top: 5px;
 
 .bar_info {
   display: inline-block;
-  color: whitesmoke;
+  color: aliceblue;
   font-size: 30px;
   margin-right: 40px;
+  text-transform:uppercase;
 }
 
 .bar_info_right {
   display: inline-block;
-  color: whitesmoke;
+  color: aliceblue;
   margin-right: 40px;
   font-size: 20px;
   float: right;
   padding: 8px;
-  border-radius: 16px;
-  border: 2px solid white;
+  border: 1px solid white;
 }
 
 .bar_info_right:hover {
@@ -183,7 +196,7 @@ padding-top: 5px;
 }
 
 #constant_partner {
-  color: white;
+  color: aliceblue;
   font-size: 25px;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 10px;
@@ -214,6 +227,8 @@ padding-top: 5px;
   margin: auto;
   float:none;
   margin-bottom: 20px;
+  font-family: c_l;
+  text-transform:uppercase;
 }
 
 #partnerName {
@@ -221,7 +236,7 @@ padding-top: 5px;
   padding-top: 20px;
   padding-left: 100px; 
   float: left;
-  color: whitesmoke;
+  color: aliceblue;
 }
 
 #right {
@@ -258,7 +273,7 @@ padding-top: 5px;
 
 #weather {
   float:left;
-  color:whitesmoke;
+  color:aliceblue;
 }
 
 #espnListContainer {
