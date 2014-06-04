@@ -292,29 +292,30 @@ function showLinkedIn() {
   }
     
   var name = linkedInPack.firstName + " " + linkedInPack.lastName;
-  var linkedinObj = "<h4>" + name + "</h5>";
-  linkedinObj += "<h5>" + linkedInPack.headline + "</h5>";
-
-  // var nyList = "<dl>";
-
-  // docObjs.forEach(function (entry) {
-  //   var headline = entry.headline.main;
-  //   var snippet = entry.snippet;
-
-  //   var title = "<dt class='highlight'>" + headline + "</dt>";
-
-  //   var description = "<dd>" + snippet + "</dd>";
-
-  //   nyList += title;
-  //   nyList += description;
-  //   nyList += "<br/>";
-
-  // });
-
-  // nyList += "</dl>";
-
-  var linkedindiv = document.getElementById('linkedin_content');
+  //var linkedinObj = "<h4>" + name + "</h5>";
+  var linkedinObj = "<h5>" + linkedInPack.headline + "</h5>";
+  var pastPositions = linkedInPack.threePastPositions.values;
+  var curPositions = linkedInPack.threeCurrentPositions.values;
+  if(pastPositions) {
+  	var pastPosStr = "<h4>Past positions </h4>" ; 
   
+  for ( var i = 0; i < pastPositions.length; i++) {
+  		pastPosStr += "<dt class='highlight'>"+pastPositions[i].company.name + "</dt>";
+  		pastPosStr += "<dd>" + pastPositions[i].title + "</dd>";
+  }
+  linkedinObj += pastPosStr;
+  }
+  if(curPositions) {
+  var curPosStr = "<h4>Current positions </h4>" ;
+  for ( var i = 0; i < curPositions.length; i++) {
+  		curPosStr += "<dt class='highlight'>"+curPositions[i].company.name + "</dt>";
+  		curPosStr += "<dd>" + curPositions[i].title + "</dd>";
+  }
+  linkedinObj += curPositions;
+  }
+	//var currentPos = linkedInPack.threePastPositions.values[0].title;
+	console.log("company");
+  var linkedindiv = document.getElementById('linkedin_content');
   linkedindiv.innerHTML = linkedinObj;
   $("#linkedin_header").html(name + "'s LinkedIn Profile");
 }
