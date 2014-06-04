@@ -24,7 +24,7 @@ var T = new Twit({
 });
 
 var Flickr = require("flickrapi"), flickrOptions = { api_key: "19944eabc1790d16813ec79f66a26dbb", secret: "19944eabc1790d16813ec79f66a26dbb"};
-
+var base_url = "contextify.herokuapp.com";
 
 //wrapping in a get
 //tests of flickr - still need dynamic geo and location
@@ -60,6 +60,8 @@ var server = http.createServer(app);
 server.listen(process.env.PORT || 3000);
 if (app.get('env') === 'development') {
     console.log("Now listening on port 3000");
+    base_url = "localhost:3000";
+    console.log("base_url is " + base_url);
 }
 
 app.configure(function() {
@@ -137,7 +139,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new LinkedInStrategy({
     consumerKey: LINKEDIN_API_KEY,
     consumerSecret: LINKEDIN_SECRET_KEY,
-    callbackURL: "http://" + process.env.base_url + "/auth/linkedin/callback",
+    callbackURL: "http://" + base_url + "/auth/linkedin/callback",
     profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline', 'three-past-positions', 'three-current-positions']
   },
   function(token, tokenSecret, profile, done) {
