@@ -296,14 +296,14 @@ function showLinkedIn() {
     
   var name = linkedInPack.firstName + " " + linkedInPack.lastName;
   //var linkedinObj = "<h4>" + name + "</h5>";
-   var linkedinObj = "<h5>" + linkedInPack.headline + "</h5>";
+  var linkedinObj = "<h5>" + linkedInPack.headline + "</h5>";
   var pastPositions = linkedInPack.threePastPositions.values;
   var curPositions = linkedInPack.threeCurrentPositions.values;
   if(pastPositions) {
   	var pastPosStr = "<h4>Past positions </h4>" ; 
   
   for ( var i = 0; i < pastPositions.length; i++) {
-  		pastPosStr += "<dt class='highlight'"+pastPositions[i].company.name + "</dt>";
+  		pastPosStr += "<dt class='highlight'>"+pastPositions[i].company.name + "</dt>";
   		pastPosStr += "<dd>" + pastPositions[i].title + "</dd>";
   }
   linkedinObj += pastPosStr;
