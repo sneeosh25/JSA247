@@ -279,7 +279,7 @@ function getTweets() {
 
     var trenddiv = document.getElementById('twitter_content');
     trenddiv.innerHTML = trendList;
-    $("#twitter_header").html("Trending tweets near " + city);
+    $("#twitter_header").html("TRENDING TWEETS NEAR " + city.toUpperCase());
   });
 }
 
@@ -317,7 +317,7 @@ function showLinkedIn() {
 	console.log("company");
   var linkedindiv = document.getElementById('linkedin_content');
   linkedindiv.innerHTML = linkedinObj;
-  $("#linkedin_header").html(name + "'s LinkedIn Profile");
+  $("#linkedin_header").html(name.toUpperCase() + "'S LINKEDIN PROFILE");
 }
 
 function getNYTimes() {
@@ -344,7 +344,7 @@ function getNYTimes() {
 
       var title = "<dt class='highlight'>" + headline + "</dt>";
 
-      var description = "<dd>" + snippet + "</dd>";
+      var description = "<dd class='bodyDesc'>" + snippet + "</dd>";
 
       nyList += title;
       nyList += description;
@@ -356,7 +356,7 @@ function getNYTimes() {
 
     var nydiv = document.getElementById('news_content');
     nydiv.innerHTML = nyList;
-    $("#news_header").html(industry + " related news near " + city);
+    $("#news_header").html(industry.toUpperCase() + " RELATED NEWS NEAR " + city.toUpperCase());
   });
 }
 
