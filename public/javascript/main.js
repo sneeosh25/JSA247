@@ -187,7 +187,7 @@ function getPartnerNameCityWeather() {
     location = me.city;
   }
 
-  $("#show").html("Show more info about " + location);
+  $("#show").html("More about " + location);
 
   curDate = calcTime(getUTCOffset(location));
   var time = curDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
@@ -270,7 +270,7 @@ function getTweets() {
       var name = entry.name;
       var url = entry.url;
 
-      var trendElement = "<li>";
+      var trendElement = "<li id='twitter_trend'>";
       var a = "<a href='" + url + "' target='_blank'>" + name + "</a>";
 
       trendElement += a + "</li>";

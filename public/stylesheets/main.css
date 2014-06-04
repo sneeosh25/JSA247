@@ -170,23 +170,23 @@ div.message {
 }
 
 #show {
--webkit-transform: rotate(90deg);
-width: 199px;
-text-align: center;
-height: 50px;
-background: indianred;
-font-weight: bold;
-font-size: 13px;
-font-family: c_l;
-text-transform: uppercase;
-position: relative;
-z-index: 1;
-left: 538px;
-top: -75px;
-border-top-left-radius: 15px;
-border-top-right-radius: 15px;
-padding: 15px;
-padding-top: 5px;
+  -webkit-transform: rotate(90deg);
+  width: 199px;
+  text-align: center;
+  height: 65px;
+  background: indianred;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: c_l;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  left: 545px;
+  top: -83px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 15px;
+  padding-top: 5px;
 }
 
 #show:hover, #hide:hover {
@@ -376,4 +376,10 @@ dd.bodyDesc {
 #linkedin_content {
   height:320px;
   overflow: scroll;
+}
+
+#twitter_trend {
+  color: aliceblue;
+  font-family: s_f;
+  font-size: 20px;
 }
