@@ -32,10 +32,10 @@ $('#background_cycler').hide(); //hide while images load
 		<div class="message">
 			<h1 id="title">Contextify</h1>
 			<div id="subheader">
-				<h3>Remote Work Made Local.</h3>
+				<h2>Remote Work Made Local.</h2>
 				<div id="start">
 					<!-- <a href="/auth/linkedin">Login with LinkedIn</a> -->
-					<a href="/auth/linkedin" class="bar_info_right" href="/auth/linkedin" id="start_button">Get Started</a>
+					<a href="/auth/linkedin" class="custom_button" href="/auth/linkedin" id="start_button">Get Started</a>
 				</div>
 			</div>
 		</div>
@@ -44,9 +44,9 @@ $('#background_cycler').hide(); //hide while images load
 
 		<div id="chat_info">
 			<form id="centered_form" name="joinChat" action="javascript:joinChat();">
-			  	<div class="form-group">
+			  	<!-- <div class="form-group">
 			    	<input name="full_name" class="form-control" id="first_name" placeholder="Enter your full name">
-			  	</div>
+			  	</div> -->
 			  	<div class="form-group">
 				  	<select name="select_industry" class="form-control" id="select_indsutry">
 						<option>--- Select your industry ---</option>
@@ -80,11 +80,12 @@ $('#background_cycler').hide(); //hide while images load
 <div id="content">
 	
 	<div id="horizontalBar">
+		<div class="bar_info" id="context_name">name</div>
 		<div class="bar_info" id="context_city">New York</div>
 		<div class="bar_info" id="context_time">8:03 am</div>
 		<div class="bar_info" id="context_weather">57 degrees</div>
 		<div class="bar_info"><img id="context_weather_icon" src="/images/icons/sunny.png" /></div>
-		<div class="bar_info_right" id="context_name">context</div>
+		<div class="bar_info_right" id="context_switch">context</div>
 	</div>
 
 	<section id="section">
@@ -110,18 +111,17 @@ $('#background_cycler').hide(); //hide while images load
 			</div>
 
 			<div id="linkedin_div" style="display: none;">
-				<h4 id="linkedin_header" class="toggle_header">LinkedIn</h4>
+				<h3 id="linkedin_header" class="toggle_header">LinkedIn</h3>
 				<div id="linkedin_content">
 				</div>
 			</div>
 
 			<div id="twitter_div" style="display: none;">
-				<h4 id="twitter_header" class="toggle_header">Twitter Trends</h4>
+				<h3 id="twitter_header" class="toggle_header">Twitter Trends</h3>
 				<div id="twitter_content">
 				</div>
 			</div>
 		</div>
-		<span id="constant_partner">You are speaking with</span>
 	</section>
 
 </div>

@@ -9,8 +9,8 @@ var modToken = "T1==cGFydG5lcl9pZD00NDgyNTkyMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12
 var fb_instance;
 var fb_stream;
 
-var me = {id: -1, city: "", full_name: "", industry: "", linkedInPack: {}}
-var you = {id: -1, city: "", full_name: "", industry: "", linkedInPack: {}};
+var me = {id: -1, city: "", industry: "", linkedInPack: {}}
+var you = {id: -1, city: "", industry: "", linkedInPack: {}};
 
 var perspective = "you";
 
@@ -23,7 +23,7 @@ $(document).ready(function(){
   $("#news_tab").click(getNYTimes);
   $("#linkedin_tab").click(showLinkedIn);
   $("#twitter_tab").click(getTweets);
-  $("#context_name").click(changePerspective);
+  $("#context_switch").click(changePerspective);
 
   if($("#loggedin").length) {
     initChat();
@@ -54,7 +54,7 @@ function connect_to_firebase(){
     console.log(obj);
     if(obj.id != me.id && obj.id != null) {
       you.city = obj.city;
-      you.full_name = obj.full_name;
+      // you.full_name = obj.full_name;
       you.industry = obj.industry;
       you.id = obj.id;
       you.linkedInPack = obj.linkedInPack;
@@ -74,7 +74,7 @@ function initChat() {
 }
 
 function joinChat() {
-  me.full_name = document.forms["centered_form"]["full_name"].value;
+  // me.full_name = document.forms["centered_form"]["full_name"].value;
   me.city = document.forms["centered_form"]["select_city"].value;
   me.industry = document.forms["centered_form"]["select_industry"].value;
   me.id = Math.random();
@@ -89,7 +89,7 @@ function joinChat() {
 
   stallForContext();
   connect_to_firebase();
-  fb_stream.push({id: me.id, full_name: me.full_name, city: me.city, industry: me.industry, linkedInPack: me.linkedInPack});
+  fb_stream.push({id: me.id, city: me.city, industry: me.industry, linkedInPack: me.linkedInPack});
 }
 
 function stallForContext() {
@@ -176,18 +176,15 @@ function initContext() {
 }
 
 function getPartnerNameCityWeather() {
-  var name = you.full_name;
+  var name = you.linkedInPack.firstName;
   var location = you.city;
 
-  var context_msg = "Switch to my context";
-
-
-  $("#constant_partner").html("You are now speaking with " + you.full_name);
+  var context_msg = "See my info";
 
   if(perspective == "me") {
-    name = me.full_name;
+    name = me.linkedInPack.firstName;
     location = me.city;
-    context_msg = "Switch to " + you.full_name + "'s context";
+    context_msg = "See " + name + "'s info";
   }
 
   $("#show").html("Show more info about " + location);
@@ -198,13 +195,13 @@ function getPartnerNameCityWeather() {
   
   $.get("/weatherData/" + getLat(location) + "/" + getLong(location), function(data) {
     var weather = Math.round(data.temp) + "&deg;F";
-    // ;" + data.sum;
 
+    $("#context_name").html(name);
     $("#context_city").html(location);
     $("#context_weather").html(weather);
     $("#context_time").html(time);
     
-    $("#context_name").html(context_msg);
+    $("#context_switch").html(context_msg);
     //now call the weather background change passing it the summary weather and place
     getWeatherBackground(data.sum, location);
   });
@@ -282,7 +279,7 @@ function getTweets() {
 
     var trenddiv = document.getElementById('twitter_content');
     trenddiv.innerHTML = trendList;
-    $("#twitter_header").html("Trending tweets near " + city);
+    $("#twitter_header").html("TRENDING TWEETS NEAR " + city.toUpperCase());
   });
 }
 
@@ -321,7 +318,7 @@ function showLinkedIn() {
 	console.log("company");
   var linkedindiv = document.getElementById('linkedin_content');
   linkedindiv.innerHTML = linkedinObj;
-  $("#linkedin_header").html(name + "'s LinkedIn Profile");
+  $("#linkedin_header").html(name.toUpperCase() + "'S LINKEDIN PROFILE");
 }
 
 function getNYTimes() {
@@ -348,7 +345,7 @@ function getNYTimes() {
 
       var title = "<dt class='highlight'>" + headline + "</dt>";
 
-      var description = "<dd>" + snippet + "</dd>";
+      var description = "<dd class='bodyDesc'>" + snippet + "</dd>";
 
       nyList += title;
       nyList += description;
@@ -360,7 +357,7 @@ function getNYTimes() {
 
     var nydiv = document.getElementById('news_content');
     nydiv.innerHTML = nyList;
-    $("#news_header").html(industry + " related news near " + city);
+    $("#news_header").html(industry.toUpperCase() + " RELATED NEWS NEAR " + city.toUpperCase());
   });
 }
 

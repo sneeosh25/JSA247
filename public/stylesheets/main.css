@@ -3,16 +3,26 @@
   src: url(/fonts/c_l.ttf);
 }
 
+@font-face {
+  font-family: s_f;
+  src: url(/fonts/s_f.ttf);
+}
+
+@font-face {
+  font-family: c_g;
+  src: url(/fonts/c_g.ttf);
+}
+
 body {
   font-family: c_l;
 }
 
 #header_text {
   margin: 45px auto;
+  margin-top: 80px;
   text-align: center;
   color: aliceblue;
   font-family: c_l;
-  text-transform:uppercase;
 }
 
 #header_block {
@@ -20,11 +30,34 @@ body {
   margin: 0px 40px;
 }
 
+.custom_button {
+  font-weight: bold;
+  border: 2px solid aliceblue;
+  text-transform: uppercase;
+  display: inline-block;
+  color: aliceblue;
+  padding: 8px;
+  border: 2px solid white;
+}
+
+.custom_button:hover {
+  cursor: pointer;
+  color: indianred;
+  border-color: indianred;
+  text-decoration: none;
+}
+
+.bar_info_right {
+  margin-right: 40px;
+  font-size: 20px;
+  float: right;
+}
+
 #start_button {
   text-align: center;
   margin: auto;
   float: none !important;
-  text-transform:uppercase;
+  font-size: 35px;
 }
 
 #background_cycler {
@@ -87,7 +120,8 @@ div.message {
 
 #title {
   color: white;
-  font-size: 70px;
+  font-size: 90px;
+  text-transform:uppercase;
 }
 
 #subheader {
@@ -143,6 +177,7 @@ height: 50px;
 background: indianred;
 font-weight: bold;
 font-size: 13px;
+font-family: c_l;
 text-transform: uppercase;
 position: relative;
 z-index: 1;
@@ -184,9 +219,12 @@ padding-top: 5px;
 
 #tabs {
   text-align: center;
+  font-family: c_l;
+  font-size: 30px;
 }
 
 .tab {
+  font-family: c_l;
   color: honeydew;
 }
 
@@ -289,6 +327,11 @@ padding-top: 5px;
   height:420px;
 }
 
+#news_header {
+  font-family: c_l;
+  text-align: center;
+}
+
 #news_content {
   height:320px;
   overflow: scroll;
@@ -296,12 +339,17 @@ padding-top: 5px;
 
 dt.highlight {
   color: yellow;
+  font-family: s_f;
 }
 
 #twitter_div {
   padding: 10px;
   width: 400px;
   height: 420px;
+}
+
+#twitter_header {
+  font-family: c_l;
 }
 
 #twitter_content {
@@ -313,6 +361,15 @@ dt.highlight {
   padding: 10px;
   width: 400px;
   height: 420px;
+}
+
+.bodyDesc {
+  font-family: c_g;
+}
+
+#linkedin_header {
+  font-family: c_l;
+  text-align: center;
 }
 
 #linkedin_content {
