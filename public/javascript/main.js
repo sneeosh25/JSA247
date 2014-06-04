@@ -299,23 +299,24 @@ function showLinkedIn() {
   var linkedinObj = "<h5>" + linkedInPack.headline + "</h5>";
   var pastPositions = linkedInPack.threePastPositions.values;
   var curPositions = linkedInPack.threeCurrentPositions.values;
-  if(pastPositions) {
-  	var pastPosStr = "<h4>Past positions </h4>" ; 
-  
-  for ( var i = 0; i < pastPositions.length; i++) {
-  		pastPosStr += "<dt class='highlight'>"+pastPositions[i].company.name + "</dt>";
-  		pastPosStr += "<dd>" + pastPositions[i].title + "</dd>";
-  }
-  linkedinObj += pastPosStr;
-  }
   if(curPositions) {
-  var curPosStr = "<h4>Current positions </h4>" ;
+  var curPosStr = "<h4 font-family:'s_f'>Current positions </h4>" ;
   for ( var i = 0; i < curPositions.length; i++) {
-  		curPosStr += "<dt class='highlight'>"+curPositions[i].company.name + "</dt>";
-  		curPosStr += "<dd>" + curPositions[i].title + "</dd>";
+  		curPosStr += "<dt class='highlight' font-family:'c_g'>"+curPositions[i].company.name + "</dt>";
+  		curPosStr += "<dd font-family:'c_g'>" + curPositions[i].title + "</dd>";
   }
   linkedinObj += curPositions;
   }
+  if(pastPositions) {
+  	var pastPosStr = "<h4 font-family:'s_f'>Past positions </h4>" ; 
+  
+  for ( var i = 0; i < pastPositions.length; i++) {
+  		pastPosStr += "<dt class='highlight' font-family:'c_g'>"+pastPositions[i].company.name + "</dt>";
+  		pastPosStr += "<dd font-family:'c_g'>" + pastPositions[i].title + "</dd>";
+  }
+  linkedinObj += pastPosStr;
+  }
+  
 	//var currentPos = linkedInPack.threePastPositions.values[0].title;
 	console.log("company");
   var linkedindiv = document.getElementById('linkedin_content');
