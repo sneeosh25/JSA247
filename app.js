@@ -52,6 +52,7 @@ var app = express();
 
 // enable sockiet io support
 var server = http.createServer(app);
+
 // var io = require('socket.io').listen(server);
 // var chat = require('./routes/chat')(io);
 
@@ -136,7 +137,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new LinkedInStrategy({
     consumerKey: LINKEDIN_API_KEY,
     consumerSecret: LINKEDIN_SECRET_KEY,
-    callbackURL: "http://localhost:3000/auth/linkedin/callback",
+    callbackURL: "http://" + process.env.base_url + "/auth/linkedin/callback",
     profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline', 'three-past-positions', 'three-current-positions']
   },
   function(token, tokenSecret, profile, done) {
@@ -217,19 +218,6 @@ app.get("/getWeatherPhoto/:place", function(req, rs) {
 
 });
 
-//twitter tests - locaiton programmed for Stanford
-// T.get('trends/closest', { lat: 37.4178, long: -122.1720}, function(err, data, response) {
-//   var place = data[0];
-//   var WID = place.woeid;
-//   console.log(WID);
-//   T.get('trends/place', { id: WID }, function (error, datr, resp) {
-//     console.log(datr);
-//   });
-// });
-
-//T.get('search/tweets', { q: 'banana since:2011-11-11', count: 100 }, function(err, data, response) {
-//  console.log(data);
-//});
 
 app.get("/tweettrends/:lat/:long", function(req, res) {
   var lat = req.params.lat;
