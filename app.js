@@ -60,7 +60,9 @@ var server = http.createServer(app);
 server.listen(process.env.PORT || 3000);
 if (app.get('env') === 'development') {
     console.log("Now listening on port 3000");
-    base_url = "localhost:3000";
+    if(!process.env.base_url) {
+      base_url = "localhost:3000";
+    }
     console.log("base_url is " + base_url);
 }
 
